@@ -24,3 +24,11 @@
         return "ok";
     }
 ```
+
+**회원관리 API**
+- 회원목록조회: GET '/users'
+- 회원등록: POST '/users'
+- 회원조회: GET '/users/{userId}'
+- 회원수정: PATCH '/users/{userId}'
+- 회원삭제: DELETE '/users/{userId}'
+
