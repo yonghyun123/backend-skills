@@ -7,3 +7,20 @@
 - SLF4J
 - Logback
 
+
+### 요청매핑에서 가장 중요한
+@PathVariable
+
+```
+    @GetMapping("/mapping/{userId}")
+    public String mappingPath(@PathVariable String userId){
+        log.info("mappingPath userId={}", userId);
+        return "ok";
+    }
+
+    @GetMapping("/mapping/users/{userId}/orders/{orderId}")
+    public String mappingPath(@PathVariable String userId, @PathVariable String orderId){
+        log.info("mappingPath userId={}, orderId={}", userId, orderId);
+        return "ok";
+    }
+```
