@@ -67,3 +67,29 @@ MultiValueMap
 > 하나의 키값에 여러 value를 셋팅할 수 있다.
 > 
 
+
+### HTTP 요청 파라미터 - 쿼리 파라미터, HTML Form
+
+클라이언트에서 서버로 요청 데이터를 전달할 때는 주로 3가지를 사용한다.
+
+- Get- 쿼리 파라미터
+- POST HTML form
+- HTTP message body에 데이터를 직접 담아서 요청
+	- 데이터형식은 주로 JSON
+
+
+ex) get 방식
+http://localhost:8-8-/request-param?username=hello
+ex) post form 전송
+
+```
+POST /request-param ...
+content-type: application/x-www-form-urlencoded
+
+username=hello
+```
+
+위의 두 방식이든 형식이 같으므로 구분없이 조회가능
+이것을 간단히 **요청 파라미터**라 한다.
+
+
