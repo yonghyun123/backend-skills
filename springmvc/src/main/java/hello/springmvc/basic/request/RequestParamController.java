@@ -1,7 +1,9 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -89,6 +91,24 @@ public class RequestParamController {
 
         log.info("username={}", paramMap.get("username"));
         log.info("age={}", paramMap.get("age"));
+
+        return "ok";// @Controller에서 ok 로 반환시 해당 파일을 찾음 Error resolving template [ok],
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+
+        log.info("helloData={}", helloData);
+
+        return "ok";// @Controller에서 ok 로 반환시 해당 파일을 찾음 Error resolving template [ok],
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+
+        log.info("helloData={}", helloData);
 
         return "ok";// @Controller에서 ok 로 반환시 해당 파일을 찾음 Error resolving template [ok],
     }

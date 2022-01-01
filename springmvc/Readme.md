@@ -92,4 +92,39 @@ username=hello
 위의 두 방식이든 형식이 같으므로 구분없이 조회가능
 이것을 간단히 **요청 파라미터**라 한다.
 
+### HTTP 요청 파라미터 - @ModelAttribute 적용
+```
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+
+        log.info("helloData={}", helloData);
+
+        return "ok";// @Controller에서 ok 로 반환시 해당 파일을 찾음 Error resolving template [ok],
+    }
+```
+
+Spring MVC는 @ModelAttribute가 있으면 다음을 실행한다.
+- HelloData 객체 생성
+- 요청 파라미터의 이름으로 HelloData 객체의 프로퍼티를 찾는다.
+- 그리고 해당 프로퍼티의 setter를 호출해서 파라미터의 값을 바인딩한다.
+- 파라미터 이름이 username이면 setUsername() 메서드를 호출 및 값 셋팅
+
+@ModelAttribute 생략
+
+```
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+
+        log.info("helloData={}", helloData);
+
+        return "ok";// @Controller에서 ok 로 반환시 해당 파일을 찾음 Error resolving template [ok],
+    }
+```
+
+스프링은 다음과 같은 규칙을 적용한다
+> String, int, Integer와 같은 단순타입 @RequestParam
+> 나머지 @ModelAttribute(argument resolver로 지정해둔 타입 외)
+
 
