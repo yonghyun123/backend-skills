@@ -32,3 +32,38 @@
 - 회원수정: PATCH '/users/{userId}'
 - 회원삭제: DELETE '/users/{userId}'
 
+### HTTP 요청 - 기본, 헤더조회
+애노테이션 기반의 스프링 컨트롤러는 다양한 파라미터를 지원한다.
+
+
+```
+@Slf4j
+@RestController
+public class RequestHeaderController {
+    @RequestMapping("/headers")
+    public String headers(HttpServletRequest request,
+                          HttpServletResponse response,
+                          HttpMethod httpMethod,
+                          Locale locale,
+                          @RequestHeader MultiValueMap<String,String> headerMap,
+                          @RequestHeader("host") String host,
+                          @CookieValue(value = "myCookie", required = false) String cookie
+                          ) {
+        log.info("request={}", request);
+        log.info("response={}", response);
+        log.info("httpMethod={}", httpMethod);
+        log.info("locale={}", locale);
+        log.info("headerMap={}", headerMap);
+        log.info("host={}", host);
+        log.info("cookie={}", cookie);
+
+        return "ok";
+    }
+}
+
+```
+
+MultiValueMap
+> 하나의 키값에 여러 value를 셋팅할 수 있다.
+> 
+
