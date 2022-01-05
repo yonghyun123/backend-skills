@@ -1,5 +1,6 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
@@ -43,15 +44,15 @@ public class RequestBodyStringController {
     }
 
     @PostMapping("/request-body-string-v3")
-    public HttpEntity<String> requestBodyStringV3(HttpEntity<String> httpEntity) throws IOException {
-        String messageBody = httpEntity.getBody();
+    public HttpEntity<String> requestBodyStringV3(HttpEntity<HelloData> httpEntity) throws IOException {
+        HelloData messageBody = httpEntity.getBody();
         log.info("message body={}", messageBody);
         return new HttpEntity<>("ok");
     }
 
     @ResponseBody
     @PostMapping("/request-body-string-v4")
-    public String requestBodyStringV4(@RequestBody String messageBody){
+    public String requestBodyStringV4(@RequestBody HelloData messageBody){
         log.info("message body={}", messageBody);
         return "ok";
     }

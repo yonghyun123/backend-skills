@@ -177,3 +177,32 @@ HTTP message body에 데이터를 직접 담아서 요청
 
 추가적인 내용
 
+### @RequestBody 객체 변환
+
+```
+    @ResponseBody
+    @PostMapping("/request-body-json-v3")
+    public String requestBodyJsonV3(@RequestBody HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+```
+
+**@RequestBody 객체 파라미터**
+- @RequestBody에 직접 만든 객체를 지정할 수 있다.
+
+'HttpEntity', '@RequestBody'를 사용하면 HTTP 메시지 컨버터가 HTTP 메시지 바디의 내용을 우리가 원하는 문자나 객체 등으로 변환해준다.
+HTTP 메시지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해주는데, 우리가 방금 V2에서 했던 작업을 대신 처리해준다.
+자세한 내용은 HTTP 메시지 컨버터에서 다룬다.
+
+
+**@RequestBody는 생략불가능**
+- 스프링은 @ModelAttribute, @RequestParam 해당 생략시 다음과 같은 규칙을 적용한다.
+- String, int, Integer같은 단순 타입 = @RequestParam
+- 나머지 = @ModelAttribute
+
+
+- @RequestBody요청
+	- JSON 요청 -> HTTP 메시지 컨버터 -> 객체
+- @ResponseBody 응답
+	- 객체 -> HTTP 메시지 컨버터 -> JSON 응답 
