@@ -205,4 +205,51 @@ HTTP 메시지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해�
 - @RequestBody요청
 	- JSON 요청 -> HTTP 메시지 컨버터 -> 객체
 - @ResponseBody 응답
-	- 객체 -> HTTP 메시지 컨버터 -> JSON 응답 
+	- 객체 -> HTTP 메시지 컨버터 -> JSON 응답
+
+### HTTP 응답 - 정적리소스, 뷰 템플릿
+응답 데이터는 이미 앞부분에서 다룬내용이지만, 응답 부분에 초점을 맞춰 정리한다.
+응답 데이터를 만드는 방법은 크게 3가지이다.
+- 정적 리소스
+	- 웹 브라우저에 정적인 HTML, css, js을 제공
+- 뷰 템플릿 사용
+	- 웹 브라우저에 동적인 HTML을 제공하는 뷰 템플릿 사용
+- HTTP 메시지 사용
+	- HTTP API를 제공하는 경우에는 HTML이 아니라 데이터를 전달해야 하므로, HTTP 메시지 바디에 JSON같은 형식으로 데이터를 실어 보낸다
+
+	
+### 정적리소스
+스프링 부트는 클래스패스의 다음 디렉토리에 있는 정적 리소스를 제공한다.
+/static, /public, /resources/, /META-INF/resources
+
+'src/main/resources' 는 리소스를 보관하는 곳이고, 또 클래스패스의 시작 경로이다.
+따라서 다음 디렉토리에 리소스를 넣어두면 스프링 부트가 정적 리소스로 서비스를 제공한다.
+
+### 뷰템플릿
+뷰템플릿을 거쳐서 HTML이 생성되고, 뷰가 응답을 만들어서 전달한다.
+일반적으로 HTML을 동적으로 만드는데 사용한다.
+
+```
+@RequestMapping("/response-view-v1")
+    public ModelAndView responseViewV1(){
+        ModelAndView mav = new ModelAndView("response/hello")
+                               .addObject("data", "hello!");
+        return mav;
+    }
+
+    @RequestMapping("/response-view-v2")
+    public String responseViewV2(Model model){
+        Model data = model.addAttribute("data", "hello!!");
+        return "response/hello";
+    }
+
+    @RequestMapping("/response/hello")
+    public void responseViewV3(Model model){
+        Model data = model.addAttribute("data", "hello!!");
+
+   }
+```
+
+
+  
+ 
