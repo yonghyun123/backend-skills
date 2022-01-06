@@ -250,6 +250,55 @@ HTTP 메시지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해�
    }
 ```
 
+**String을 반환하는 경우 - View or HTTP 메시지**
+> @ResponseBody가 없으면 response/hello로 뷰 리졸버가 실행되어서 뷰를 찾고, 렌더링을 한다. @ResponseBody가 있으면 뷰 리졸버를 실행하지 않고, HTTP 메시지 바디에 직접 reponse/hello라는 문자가 입력된다.
 
+
+## HTTP 응답 - HTTP API 메시지 바디에 직접 입력
+HTTP API를 제공하는 경우에는 HTML이 아니라 데이터를 전달해야 하므로, HTTP 메시지 바디에 JSON 같은 형식으로 데이터를 실어 보낸다. HTTP 요청에서 응답까지 대부분 다루었으므로 이번시간에 정리를 한다.
+
+**참고**
+> HTML이나 뷰 템플릿을 사용해도 HTTP응답 메시지 바디에 HTML 데이터가 담겨서 전달된다. 여기서 설명하는 내용은 정적리소스나 뷰 템플릿을 거치지 않고, 직접 HTTP응답 데이터를 전달하는 경우를 말한다.
   
- 
+  ```
+  @Slf4j
+@Controller
+public class ResponseBodyController {
+    @GetMapping("/response-body-string-v1")
+    public void responseBodyV1(HttpServletResponse response) throws IOException {
+        response.getWriter().write("ok");
+    }
+
+    @GetMapping("/response-body-string-v2")
+    public ResponseEntity<String> responseBodyV2() {
+        return new ResponseEntity<>("ok", HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping("/response-body-string-v3")
+    public String responseBodyV3() {
+        return "ok";
+    }
+
+    @GetMapping("/response-body-json-v1")
+    public ResponseEntity<HelloData> responseBodyJsonV1(){
+        HelloData helloData = new HelloData();
+        helloData.setUsername("kim");
+        helloData.setAge(20);
+        return new ResponseEntity<HelloData>(helloData, HttpStatus.OK);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @GetMapping("/response-body-json-v2")
+    public HelloData responseBodyJsonV2(){
+        HelloData helloData = new HelloData();
+        helloData.setUsername("kim");
+        helloData.setAge(20);
+        return helloData;
+    }
+}
+
+  ```
+  
+  
