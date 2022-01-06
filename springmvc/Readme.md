@@ -311,5 +311,39 @@ HTTP 메시지 컨버터를 설명하기 전에 아래를 보자
 - 기본문자처리: StringHttpMessageConverter
 - 기본객체처리: MappingJackson2HttpMessageConverter
 
+**StringHttpMessageConverter**
+```
+content-type: application/json
+
+@RequestMapping
+void hello(@RequestBody String data){
+	
+}
+```
+**MappingJackson2HttpMessageConverter**
+```
+content-type: application/json
+
+@RequestMapping
+void hello(@RequestBody HelloData data){
+
+}	
+```
+**?**
+```
+content-type: text/html
+
+@RequestMapping
+void hello(@RequestBody HelloData data){
+
+}	
+```
+
+
+
+
+
+
+
 
 
