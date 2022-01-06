@@ -302,4 +302,8 @@ public class ResponseBodyController {
   ```
   
 ##   HTTP 메시지 컨버터
+뷰 템플릿으로 HTML을 생성해서 응답하는 것이 아니라 HTTP API처럼 JSON 데이터를 HTTP 메시지 바디에서 직접 읽거나 쓰는 경우 HTTP 메시지 컨버터를 사용하면 편리하다.
+HTTP 메시지 컨버터를 설명하기 전에 아래를 보자
+
+사진
 
