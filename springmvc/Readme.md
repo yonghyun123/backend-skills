@@ -305,12 +305,11 @@ public class ResponseBodyController {
 뷰 템플릿으로 HTML을 생성해서 응답하는 것이 아니라 HTTP API처럼 JSON 데이터를 HTTP 메시지 바디에서 직접 읽거나 쓰는 경우 HTTP 메시지 컨버터를 사용하면 편리하다.
 HTTP 메시지 컨버터를 설명하기 전에 아래를 보자
 
-사진
-다시 커밋
-키체인변경
-와이러나
-aaaaa변경
-소스트리는?
+@ResponseBody를 사용
+- HTTP의 body에 문자 내용을 직접 반환
+- 'viewResolver'대신에 HttpMessageConverter가 동작
+- 기본문자처리: StringHttpMessageConverter
+- 기본객체처리: MappingJackson2HttpMessageConverter
 
 
 
