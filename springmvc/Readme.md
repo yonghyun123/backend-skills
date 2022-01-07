@@ -339,11 +339,38 @@ void hello(@RequestBody HelloData data){
 }	
 ```
 
+### 요청 매핑 핸들로 어댑터 구조
+<img width="596" alt="스크린샷 2022-01-07 오후 5 41 28" src="https://user-images.githubusercontent.com/15208005/148516739-13962a03-27a8-4c6c-b77b-58d17c058600.png">
+
+모든 비밀은 애노테이션 기반의 컨트롤러, 그러니까 @RequestMapping을 처리하는 핸들러 어댑터인 RequestMappingHandlerAdapter에 있다.
+
+<img width="497" alt="스크린샷 2022-01-07 오후 5 49 57" src="https://user-images.githubusercontent.com/15208005/148517925-baeb9d3a-6c0b-4d4d-93c8-8395819b7291.png">
+
+**ArgumentResolver**
+생각해보면 애노테이션 기반의 컨트롤러는 매우 다양한 파라미터를 사용할 수 있었다.
+HttpServletRequest, Model은 물론이고 @RequestParam, @ModelAttribute 등 매우 유연함을 보여준다. 이것은 **ArgumetnResolver**가 처리해준 것이다.
+
+**ReturnValueHandler**
+ArgumentResolver랑 비슷한데 응답에 대한 값을 변환하고 처리한다.
+컨트롤러에서 String으로 뷰 이름을 반환해도, 이유가 ReturnValueHandler덕분이다.
 
 
 
+<img width="508" alt="스크린샷 2022-01-07 오후 6 03 53" src="https://user-images.githubusercontent.com/15208005/148519675-ed3bd68b-e38a-4a65-b271-4e7814d82495.png">
 
 
 
+> HTTP 메시지 컨버터를 사용하는 @RequestBody도 컨트롤러가 필요로 하는 파라미터의 값에 사용한다. @ResponseBody도 마찬가지이다.
 
+
+**요청의 경우** @RequestBody를 처리하는 ArgumentResolver가 있고 HttpEntity를 처리하는 ArgumentResolver가 있다. ArgumentResolver들이 HTTP메시지 컨버터를 사용해서 필요한 객체를 생성하는 것이다.
+
+**응답의 경우**
+@ResponseBody와 HttpEntity를 처리하는 ReturnValueHandler가 있다. 여기에서 HTTP메시지 컨버터를 호출해서 응답 결과를 만든다.
+
+## 확장
+스프링은 다음을 모두 인터페이스로 제공한다.
+- HandlerMethodArgumentResolver
+- HandlerMethodReturnValueHandler
+- HttpMessageConverter
 
