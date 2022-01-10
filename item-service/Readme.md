@@ -35,3 +35,9 @@ POST - HTML form
 
 **참고**
 HTML form 전송은 PUT, PATCH를 지원하지 않는다. GET, POST만 사용할 수 있다.
+
+## PRG Post/Redirect/Get
+지금까지 진행한 상품 등록 처리 컨트롤러는 심각한 문제가 있다.
+상품을 등록하고 새로고침하면 중복등록된다.
+
+ 
