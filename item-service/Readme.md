@@ -25,3 +25,8 @@
      위의 소스 역할을 하게 됨
 ```
 
+## 상품 등록 처리
+POST - HTML form
+- content-type:application/x-www-form-urlencoded
+
+
