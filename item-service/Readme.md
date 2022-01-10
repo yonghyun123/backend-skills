@@ -29,4 +29,9 @@
 POST - HTML form
 - content-type:application/x-www-form-urlencoded
 
+**리다이렉트**
+상품 수정은 마지막에 뷰 템플릿을 호출하는 대신에 상품 상세 화면으로 이동하도록 리다이렉트 호출한다.
+- 스프링은 'redirect:/...'으로 편리하게 리다이렉트를 지원한다.
 
+**참고**
+HTML form 전송은 PUT, PATCH를 지원하지 않는다. GET, POST만 사용할 수 있다.
