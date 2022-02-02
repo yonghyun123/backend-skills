@@ -57,3 +57,4 @@ HTML form 전송은 PUT, PATCH를 지원하지 않는다. GET, POST만 사용할
 ```
 <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
 ```
+* 
