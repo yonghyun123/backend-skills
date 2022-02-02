@@ -20,6 +20,4 @@ public class SeoulApiController {
     public List<AirQualityAverage> getAllAirConditionInfo(){
         return seoulApiService.getSeoulAirInfo();
     }
-
-
 }
