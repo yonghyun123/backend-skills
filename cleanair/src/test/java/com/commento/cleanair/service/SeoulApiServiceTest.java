@@ -1,8 +1,7 @@
 package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityAverage;
-import com.commento.cleanair.seoul.SeoulAirQualityApiCaller;
-import com.commento.cleanair.seoul.SeoulAirQualityApiDto;
+import com.commento.cleanair.dto.ParticularAirQuality;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SeoulApiServiceTest {
@@ -23,6 +21,11 @@ class SeoulApiServiceTest {
         List<AirQualityAverage> seoulAirInfo = seoulApiService.getSeoulAirInfo();
         //then
         Assertions.assertThat(seoulAirInfo.size()).isEqualTo(26);
-
+    }
+    
+    @Test
+    public void 특정지역_API호출_Test(){
+        ParticularAirQuality gangnam = seoulApiService.getAirInfoByCityName("gangnam");
+        Assertions.assertThat(gangnam.getLocationName()).isEqualTo("강남구");
     }
 }

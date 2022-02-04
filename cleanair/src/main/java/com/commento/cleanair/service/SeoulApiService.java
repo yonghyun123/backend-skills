@@ -1,15 +1,18 @@
 package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityAverage;
+import com.commento.cleanair.dto.ParticularAirQuality;
 import com.commento.cleanair.seoul.SeoulAirQualityApiCaller;
 import com.commento.cleanair.seoul.SeoulAirQualityApiDto.GetAirQualityResponse;
 import com.commento.cleanair.utils.CalculateAirCondition;
+import com.commento.cleanair.utils.LocationNameRules;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.commento.cleanair.seoul.SeoulAirQualityApiDto.*;
 
@@ -42,7 +45,6 @@ public class SeoulApiService {
                 .mapToDouble(v -> Double.parseDouble(v.getPm10()))
                 .average().getAsDouble();
 
-        log.info("seoulAverage = {}", seoulAverage);
 
         AirQualityAverage airQualityAverage = new AirQualityAverage();
         airQualityAverage.setLocationName("서울시");
@@ -53,5 +55,36 @@ public class SeoulApiService {
         seoulTotalQualityInfo.add(airQualityAverage);
 
         return seoulTotalQualityInfo;
+    }
+
+    public ParticularAirQuality getAirInfoByCityName(String cityName) {
+        GetAirQualityResponse airQuality = qualityApiCaller.getAirQuality();
+        String translatedCity = LocationNameRules.translateCity.get(cityName);
+
+        Item item = airQuality.getResult()
+                .getItems()
+                .stream()
+                .filter(v -> v.getMsrsteName().equals(translatedCity))
+                .findAny()
+                .orElse(null);
+
+        log.info("item = {}" + item);
+        ParticularAirQuality particularAirQuality = new ParticularAirQuality();
+        particularAirQuality.setLocationName(item.getMsrsteName());
+        particularAirQuality.setCO(item.getCo());
+        particularAirQuality.setPM10(item.getPm10());
+        particularAirQuality.setPM25(item.getPm25());
+        particularAirQuality.setSO2(item.getSo2());
+        particularAirQuality.setNO2(item.getNo2());
+        particularAirQuality.setO3(item.getO3());
+
+        particularAirQuality.setPM10grade(CalculateAirCondition.getPM10Grade(item.getPm10()));
+        particularAirQuality.setPM25grade(CalculateAirCondition.getPM25Grade(item.getPm25()));
+        particularAirQuality.setO3Grade(CalculateAirCondition.getO3Grade(item.getO3()));
+        particularAirQuality.setCOGrade(CalculateAirCondition.getCOGrade(item.getCo()));
+        particularAirQuality.setSO2Grade(CalculateAirCondition.getSO2Grade(item.getSo2()));
+        particularAirQuality.setNO2Grade(CalculateAirCondition.getNO2Grade(item.getNo2()));
+
+        return particularAirQuality;
     }
 }
