@@ -1,6 +1,7 @@
 package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityAverage;
+import com.commento.cleanair.dto.ParticularAirQuality;
 import com.commento.cleanair.seoul.SeoulAirQualityApiCaller;
 import com.commento.cleanair.seoul.SeoulAirQualityApiDto;
 import org.assertj.core.api.Assertions;
@@ -23,6 +24,11 @@ class SeoulApiServiceTest {
         List<AirQualityAverage> seoulAirInfo = seoulApiService.getSeoulAirInfo();
         //then
         Assertions.assertThat(seoulAirInfo.size()).isEqualTo(26);
-
+    }
+    
+    @Test
+    public void 특정지역_API호출_Test(){
+        ParticularAirQuality gangnam = seoulApiService.getAirInfoByCityName("gangnam");
+        Assertions.assertThat(gangnam.getLocationName()).isEqualTo("강남구");
     }
 }
