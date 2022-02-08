@@ -82,6 +82,7 @@ public class SeoulAirQualityApiCaller {
                 .stream()
                 .map(responseAir -> AirQualityDto.GuAirQuality
                         .builder()
+                        .GU(responseAir.getMsrsteName())
                         .PM10(responseAir.getCo())
                         .PM25(responseAir.getPm25())
                         .O3(responseAir.getO3())
