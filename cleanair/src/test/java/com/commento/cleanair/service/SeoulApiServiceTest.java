@@ -1,6 +1,7 @@
 package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityDto;
+import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ class SeoulApiServiceTest {
     @Test
     public void seoulApiServiceTest() {
         //when
-        AirQualityDto.AirQuality seoulAirInfo = seoulApiService.getSeoulAirInfo(AirQualitySido.seoul, "gangnam");
+        AirQualityDto.AirQuality seoulAirInfo = seoulApiService.getSeoulAirInfo(AirQualitySido.seoul, AirQualityGu.dongjak);
         //then
         Assertions.assertThat(seoulAirInfo.getGuList().size()).isEqualTo(1);
     }

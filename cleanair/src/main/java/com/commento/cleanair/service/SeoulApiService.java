@@ -2,14 +2,11 @@ package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.seoul.SeoulAirQualityApiCaller;
-import com.commento.cleanair.utils.LocationNameRules;
+import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -18,12 +15,11 @@ public class SeoulApiService {
     final private SeoulAirQualityApiCaller qualityApiCaller;
 
     //business logic
-    public AirQualityDto.AirQuality getSeoulAirInfo(AirQualitySido sido, String gu){
+    public AirQualityDto.AirQuality getSeoulAirInfo(AirQualitySido sido, AirQualityGu gu){
         AirQualityDto.AirQuality airQuality = qualityApiCaller.getAirQuality();
         if(AirQualitySido.seoul == sido){
             if(gu != null){
-                String convertedGu = LocationNameRules.translateCity.get(gu);
-                return airQuality.getAirQuality(convertedGu);
+                return airQuality.getAirQuality(gu.getDescription());
             }
             return airQuality;
         }
