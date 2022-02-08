@@ -1,17 +1,40 @@
 package com.commento.cleanair.dto;
 
+
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
-@Builder
+import java.util.List;
+
 public class AirQualityAverage {
-    String locationName;
-    String PM10;
-    String grade;
+
+    @Getter
+    @Builder
+    @ToString
+    public static class AirQuality{
+        String sido;
+        String sidoPm10Avg;
+        String sidoPm10AvgGrade;
+        List<GuAirQuality> guList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class GuAirQuality{
+        String PM10;
+        String PM10grade;
+        String PM25;
+        String PM25grade;
+        String O3;
+        String O3Grade;
+        String NO2;
+        String NO2Grade;
+        String CO;
+        String COGrade;
+        String SO2;
+        String SO2Grade;
+    }
 }
 
