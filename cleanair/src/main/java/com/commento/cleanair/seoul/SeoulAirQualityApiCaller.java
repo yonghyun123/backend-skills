@@ -1,6 +1,6 @@
 package com.commento.cleanair.seoul;
 
-import com.commento.cleanair.dto.AirQualityAverage;
+import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.utils.CalculateAirCondition;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,7 +34,7 @@ public class SeoulAirQualityApiCaller {
         this.seoulAirQualityApi = retrofit.create(SeoulAirQualityApi.class);
     }
 
-    public AirQualityAverage.AirQuality getAirQuality() {
+    public AirQualityDto.AirQuality getAirQuality() {
         try {
             Call<SeoulAirQualityApiDto.GetAirQualityResponse> call = seoulAirQualityApi.getAirQuality();
             log.info("call-url = {}",call.request().url());
@@ -57,7 +57,7 @@ public class SeoulAirQualityApiCaller {
         }
     }
 
-    public AirQualityAverage.AirQuality convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
+    public AirQualityDto.AirQuality convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
         double avgPm10Avg = response.getResult()
                 .getItems()
                 .stream()
@@ -67,9 +67,9 @@ public class SeoulAirQualityApiCaller {
 
         String avgPm10 = String.valueOf(avgPm10Avg);
         String avgPm10AvgGrade = CalculateAirCondition.getPM10Grade(avgPm10);
-        List<AirQualityAverage.GuAirQuality> guList = convert(response.getResult().getItems());
+        List<AirQualityDto.GuAirQuality> guList = convert(response.getResult().getItems());
 
-        return AirQualityAverage.AirQuality.builder()
+        return AirQualityDto.AirQuality.builder()
                 .sido("seoul") //타입수정필요
                 .sidoPm10AvgGrade(avgPm10AvgGrade)
                 .sidoPm10Avg(avgPm10)
@@ -77,10 +77,10 @@ public class SeoulAirQualityApiCaller {
                 .build();
     }
 
-    public List<AirQualityAverage.GuAirQuality> convert(List<SeoulAirQualityApiDto.Item> response){
+    public List<AirQualityDto.GuAirQuality> convert(List<SeoulAirQualityApiDto.Item> response){
         return response
                 .stream()
-                .map(responseAir -> AirQualityAverage.GuAirQuality
+                .map(responseAir -> AirQualityDto.GuAirQuality
                         .builder()
                         .PM10(responseAir.getCo())
                         .PM25(responseAir.getPm25())

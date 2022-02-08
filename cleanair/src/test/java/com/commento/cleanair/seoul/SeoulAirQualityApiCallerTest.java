@@ -1,6 +1,6 @@
 package com.commento.cleanair.seoul;
 
-import com.commento.cleanair.dto.AirQualityAverage;
+import com.commento.cleanair.dto.AirQualityDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ class SeoulAirQualityApiCallerTest {
 
     @Test
     public void seoulAirAPICallTest() {
-        AirQualityAverage.AirQuality airQuality = airQualityApiCaller.getAirQuality();
+        AirQualityDto.AirQuality airQuality = airQualityApiCaller.getAirQuality();
         Assertions.assertThat(airQuality).isNotNull();
     }
 }

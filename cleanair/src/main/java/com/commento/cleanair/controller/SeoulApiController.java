@@ -1,13 +1,9 @@
 package com.commento.cleanair.controller;
 
-import com.commento.cleanair.dto.AirQualityAverage;
-import com.commento.cleanair.dto.ParticularAirQuality;
+import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.service.SeoulApiService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,14 +14,10 @@ public class SeoulApiController {
 
     private final SeoulApiService seoulApiService;
 
-    @GetMapping("/seoul")
-    public List<AirQualityAverage> getAllAirConditionInfo(){
-        return seoulApiService.getSeoulAirInfo();
-    }
-
-    @GetMapping("/seoul/{cityName}")
-    public ParticularAirQuality getAirInfoByCityName(@PathVariable String cityName){
-        return seoulApiService.getAirInfoByCityName(cityName);
+    @GetMapping("/{sido}")
+    public AirQualityDto.AirQuality getAirQuality(@PathVariable String sido,
+                                                  @RequestParam(name = "gu", required = false) String gu){
+        return seoulApiService.getSeoulAirInfo(sido, gu);
     }
 
 }

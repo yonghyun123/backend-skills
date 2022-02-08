@@ -7,7 +7,7 @@ import lombok.ToString;
 
 import java.util.List;
 
-public class AirQualityAverage {
+public class AirQualityDto {
 
     @Getter
     @Builder
