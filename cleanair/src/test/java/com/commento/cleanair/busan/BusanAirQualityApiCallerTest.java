@@ -1,5 +1,6 @@
 package com.commento.cleanair.busan;
 
+import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiCaller;
 import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiDto.GetAirQualityResponse;
 
@@ -16,7 +17,8 @@ class BusanAirQualityApiCallerTest {
 
     @Test
     public void busanAirAPICallTest() {
-        GetAirQualityResponse airQuality = busanAirQualityApiCaller.getAirQuality();
+//        GetAirQualityResponse airQuality = busanAirQualityApiCaller.getAirQuality();
+        AirQualityDto.AirQuality airQuality = busanAirQualityApiCaller.getAirQuality();
         Assertions.assertThat(airQuality).isNotNull();
     }
 }

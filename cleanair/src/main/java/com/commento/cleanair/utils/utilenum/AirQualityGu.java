@@ -32,7 +32,7 @@ public enum AirQualityGu {
     seocho("서초구"),
     gangnam("강남구"),
     dobong("도봉구"),
-    
+
     /* 부산 */
     taejong("태종대"),
     chunghak("청학동"),

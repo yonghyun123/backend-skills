@@ -1,6 +1,7 @@
 package com.commento.cleanair.infrastructure.seoul;
 
 import com.commento.cleanair.dto.AirQualityDto;
+import com.commento.cleanair.infrastructure.AirApiCallerCreator;
 import com.commento.cleanair.utils.CalculateAirCondition;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class SeoulAirQualityApiCaller {
+public class SeoulAirQualityApiCaller implements AirApiCallerCreator {
 
     private final SeoulAirQualityApi seoulAirQualityApi;
 
