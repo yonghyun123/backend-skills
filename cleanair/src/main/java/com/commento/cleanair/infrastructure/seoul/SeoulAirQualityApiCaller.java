@@ -1,4 +1,4 @@
-package com.commento.cleanair.seoul;
+package com.commento.cleanair.infrastructure.seoul;
 
 import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.utils.CalculateAirCondition;

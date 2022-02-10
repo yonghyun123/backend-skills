@@ -1,4 +1,4 @@
-package com.commento.cleanair.seoul;
+package com.commento.cleanair.infrastructure.seoul;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

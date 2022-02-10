@@ -1,4 +1,4 @@
-package com.commento.cleanair.seoul;
+package com.commento.cleanair.infrastructure.seoul;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityDto;
-import com.commento.cleanair.seoul.SeoulAirQualityApiCaller;
+import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiCaller;
 import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import lombok.RequiredArgsConstructor;

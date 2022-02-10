@@ -1,4 +1,4 @@
-package com.commento.cleanair.busan;
+package com.commento.cleanair.infrastructure.busan;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

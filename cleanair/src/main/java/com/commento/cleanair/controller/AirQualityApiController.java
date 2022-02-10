@@ -7,12 +7,10 @@ import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/air-info")
 @RequiredArgsConstructor
-public class SeoulApiController {
+public class AirQualityApiController {
 
     private final SeoulApiService seoulApiService;
 

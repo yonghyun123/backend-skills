@@ -1,4 +1,4 @@
-package com.commento.cleanair.busan;
+package com.commento.cleanair.infrastructure.busan;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
