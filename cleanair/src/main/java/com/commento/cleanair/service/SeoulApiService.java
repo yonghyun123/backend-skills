@@ -2,31 +2,31 @@ package com.commento.cleanair.service;
 
 import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.AirApiCaller;
+import com.commento.cleanair.infrastructure.AirApiCallerFactory;
 import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SeoulApiService {
-    final private AirApiCaller qualityApiCaller;
-
-    public SeoulApiService(AirApiCaller qualityApiCaller) {
-        this.qualityApiCaller = qualityApiCaller;
-    }
+    final private AirApiCallerFactory airApiCallerFactory;
 
     //business logic
     public AirQualityDto.AirQuality getSeoulAirInfo(AirQualitySido sido, AirQualityGu gu){
 
-        if(AirQualitySido.seoul == sido){
-            AirQualityDto.AirQuality airQuality = qualityApiCaller.getAirQuality();
-            if(gu != null){
-                return airQuality.getAirQuality(gu.getDescription());
-            }
-            return airQuality;
+        //factroy 패턴을 이용한 지역 APICaller 셋팅
+        AirApiCaller apiType = airApiCallerFactory.getApiType(sido);
+        AirQualityDto.AirQuality airQuality = apiType.getAirQuality();
+        if (gu != null) {
+            return airQuality.getAirQuality(gu.getDescription());
         }
-
-        throw new RuntimeException("아직 준비되지 않은 도시입니다.");
+        return airQuality;
     }
 }

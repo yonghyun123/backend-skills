@@ -4,7 +4,6 @@ import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +16,12 @@ public class AirApiCallerFactory {
         if(CollectionUtils.isEmpty(airApiCallerList)) {
             throw new IllegalArgumentException("해당 지역은 없습니다.");
         }
+        //map은 중간연산이라 값이 들어가지 않음
+//        airApiCallerList.stream()
+//                .map(apiList -> apiCallerMap.put(apiList.getSidoType(), apiList));
 
-        for(AirApiCaller item: airApiCallerList){
-            apiCallerMap.put(item.getSidoType(), item);
-        }
-
+        airApiCallerList.stream()
+                .forEach(apiList -> apiCallerMap.put(apiList.getSidoType(), apiList));
     }
 
     public AirApiCaller getApiType(AirQualitySido sido){
