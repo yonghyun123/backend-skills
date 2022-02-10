@@ -19,7 +19,7 @@ class SeoulApiServiceTest {
     @Test
     public void seoulApiServiceTest() {
         //when
-        AirQualityDto.AirQuality seoulAirInfo = seoulApiService.getSeoulAirInfo(AirQualitySido.seoul, AirQualityGu.dongjak);
+        AirQualityDto.AirQuality seoulAirInfo = seoulApiService.getSeoulAirInfo(AirQualitySido.busan, AirQualityGu.myoungjang);
         //then
         Assertions.assertThat(seoulAirInfo.getGuList().size()).isEqualTo(1);
     }

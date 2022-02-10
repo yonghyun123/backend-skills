@@ -1,11 +1,14 @@
-package com.commento.cleanair.seoul;
+package com.commento.cleanair.infrastructure.seoul;
 
 import com.commento.cleanair.dto.AirQualityDto;
+import com.commento.cleanair.infrastructure.AirApiCaller;
 import com.commento.cleanair.utils.CalculateAirCondition;
+import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -17,7 +20,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class SeoulAirQualityApiCaller {
+@Primary
+public class SeoulAirQualityApiCaller implements AirApiCaller {
 
     private final SeoulAirQualityApi seoulAirQualityApi;
 
@@ -34,6 +38,12 @@ public class SeoulAirQualityApiCaller {
         this.seoulAirQualityApi = retrofit.create(SeoulAirQualityApi.class);
     }
 
+    @Override
+    public AirQualitySido getSidoType() {
+        return AirQualitySido.seoul;
+    }
+
+    @Override
     public AirQualityDto.AirQuality getAirQuality() {
         try {
             Call<SeoulAirQualityApiDto.GetAirQualityResponse> call = seoulAirQualityApi.getAirQuality();
