@@ -1,9 +1,9 @@
 package com.commento.cleanair.infrastructure.busan;
 
 import com.commento.cleanair.dto.AirQualityDto;
-import com.commento.cleanair.infrastructure.AirApiCallerCreator;
-import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiDto;
+import com.commento.cleanair.infrastructure.AirApiCaller;
 import com.commento.cleanair.utils.CalculateAirCondition;
+import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class BusanAirQualityApiCaller implements AirApiCallerCreator {
+public class BusanAirQualityApiCaller implements AirApiCaller {
     private final BusanAirQualityApi busanAirQualityApi;
 
     public BusanAirQualityApiCaller(@Value("${api.busan.base-url}") String baseUrl) {
@@ -33,6 +33,12 @@ public class BusanAirQualityApiCaller implements AirApiCallerCreator {
         this.busanAirQualityApi = retrofit.create(BusanAirQualityApi.class);
     }
 
+    @Override
+    public AirQualitySido getSidoType() {
+        return AirQualitySido.busan;
+    }
+
+    @Override
     public AirQualityDto.AirQuality getAirQuality() {
         try {
             var call = busanAirQualityApi.getAirQuality();
