@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/air-info")
+@RequestMapping("/api/v1/air-info")
 @RequiredArgsConstructor
 public class AirQualityApiController {
 
