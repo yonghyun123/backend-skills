@@ -9,13 +9,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class BusanAirQualityApiDto {
-    @Getter
-    @Setter
-    @ToString
-    public static class GetAirQualityResponse {
-        @JsonProperty("getAirQualityInfoClassifiedByStation")
-        private Result result;
-    }
+
+    @JsonProperty("getAirQualityInfoClassifiedByStation")
+    private Result result;
 
     @Getter
     @Setter
@@ -67,5 +63,9 @@ public class BusanAirQualityApiDto {
         private String pm25Cai;
         private String pm10;
         private String pm10Cai;
+    }
+
+    public Result getResult() {
+        return result;
     }
 }

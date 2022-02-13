@@ -2,8 +2,6 @@ package com.commento.cleanair.busan;
 
 import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiCaller;
-import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiDto.GetAirQualityResponse;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

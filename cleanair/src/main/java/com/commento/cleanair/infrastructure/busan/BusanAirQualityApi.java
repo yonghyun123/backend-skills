@@ -8,5 +8,5 @@ public interface BusanAirQualityApi {
 
     @GET("AirQualityInfoService/getAirQualityInfoClassifiedByStation?serviceKey=" + serviceKey +
             "&resultType=json&pageNo=1&numOfRows=33")
-    Call<BusanAirQualityApiDto.GetAirQualityResponse> getAirQuality();
+    Call<BusanAirQualityApiDto> getAirQuality();
 }

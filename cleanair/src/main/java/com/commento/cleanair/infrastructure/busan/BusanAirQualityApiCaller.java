@@ -63,7 +63,7 @@ public class BusanAirQualityApiCaller implements AirApiCaller {
         }
     }
 
-    public AirQualityDto.AirQuality convert(BusanAirQualityApiDto.GetAirQualityResponse response) {
+    public AirQualityDto.AirQuality convert(BusanAirQualityApiDto response) {
         double avgPm10Avg = response.getResult()
                 .getItems()
                 .stream()
