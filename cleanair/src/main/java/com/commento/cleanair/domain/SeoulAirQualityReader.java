@@ -1,6 +1,5 @@
 package com.commento.cleanair.domain;
 
-import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiCaller;
 import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiDto;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
@@ -22,7 +21,7 @@ public class SeoulAirQualityReader implements AirQualityReader {
     }
 
     @Override
-    public AirQualityDto.AirQuality airQuality() {
+    public AirQuality airQuality() {
         SeoulAirQualityApiDto.Result result = caller.getAirQuality();
         return mapper.mapToAirQuality(result);
     }

@@ -1,6 +1,5 @@
 package com.commento.cleanair.domain;
 
-import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiDto;
 import com.commento.cleanair.utils.CalculateAirCondition;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class SeoulAirQualityApiDtoMapper {
 
-    public AirQualityDto.AirQuality mapToAirQuality(SeoulAirQualityApiDto.Result result) {
+    public AirQuality mapToAirQuality(SeoulAirQualityApiDto.Result result) {
         double avgPm10Avg = result
                 .getItems()
                 .stream()
@@ -21,9 +20,9 @@ public class SeoulAirQualityApiDtoMapper {
 
         String avgPm10 = String.valueOf(avgPm10Avg);
         String avgPm10AvgGrade = CalculateAirCondition.getPM10Grade(avgPm10);
-        List<AirQualityDto.GuAirQuality> guList = toGuAirQuality(result.getItems());
+        List<AirQuality.GuAirQuality> guList = toGuAirQuality(result.getItems());
 
-        return AirQualityDto.AirQuality.builder()
+        return AirQuality.builder()
                 .sido("seoul") //타입수정필요
                 .sidoPm10AvgGrade(avgPm10AvgGrade)
                 .sidoPm10Avg(avgPm10)
@@ -31,10 +30,10 @@ public class SeoulAirQualityApiDtoMapper {
                 .build();
     }
 
-    private List<AirQualityDto.GuAirQuality> toGuAirQuality(List<SeoulAirQualityApiDto.Item> response) {
+    private List<AirQuality.GuAirQuality> toGuAirQuality(List<SeoulAirQualityApiDto.Item> response) {
         return response
                 .stream()
-                .map(responseAir -> AirQualityDto.GuAirQuality
+                .map(responseAir -> AirQuality.GuAirQuality
                         .builder()
                         .GU(responseAir.getMsrsteName())
                         .PM10(responseAir.getCo())
