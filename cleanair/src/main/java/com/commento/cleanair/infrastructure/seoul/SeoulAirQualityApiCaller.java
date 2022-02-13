@@ -46,7 +46,7 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
     @Override
     public AirQualityDto.AirQuality getAirQuality() {
         try {
-            Call<SeoulAirQualityApiDto.GetAirQualityResponse> call = seoulAirQualityApi.getAirQuality();
+            Call<SeoulAirQualityApiDto> call = seoulAirQualityApi.getAirQuality();
             log.info("call-url = {}",call.request().url());
             var response = call.execute().body();
             log.info("response-getResult = {}",response.getResult());
@@ -67,7 +67,7 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
         }
     }
 
-    public AirQualityDto.AirQuality convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
+    public AirQualityDto.AirQuality convert(SeoulAirQualityApiDto response) {
         double avgPm10Avg = response.getResult()
                 .getItems()
                 .stream()
