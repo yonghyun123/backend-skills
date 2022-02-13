@@ -1,7 +1,7 @@
 package com.commento.cleanair.seoul;
 
-import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiCaller;
+import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ class SeoulAirQualityApiCallerTest {
 
     @Test
     public void seoulAirAPICallTest() {
-        AirQualityDto.AirQuality airQuality = airQualityApiCaller.getAirQuality();
-        Assertions.assertThat(airQuality).isNotNull();
+        SeoulAirQualityApiDto.Result result = airQualityApiCaller.getAirQuality();
+        Assertions.assertThat(result).isNotNull();
     }
 }
