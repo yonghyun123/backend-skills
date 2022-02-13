@@ -9,13 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class SeoulAirQualityApiDto {
-    @Getter
-    @Setter
-    @ToString
-    public static class GetAirQualityResponse{
-        @JsonProperty("RealtimeCityAir")
-        private Result result;
-    }
+    @JsonProperty("RealtimeCityAir")
+    private Result result;
 
     @Getter
     @Setter
@@ -75,5 +70,9 @@ public class SeoulAirQualityApiDto {
         @JsonProperty("ARPLT_MAIN")
         private String measuredItem;
 
+    }
+
+    public Result getResult() {
+        return result;
     }
 }
