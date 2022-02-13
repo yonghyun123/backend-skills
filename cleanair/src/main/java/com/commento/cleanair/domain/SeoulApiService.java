@@ -1,16 +1,13 @@
-package com.commento.cleanair.service;
+package com.commento.cleanair.domain;
 
 import com.commento.cleanair.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.AirApiCaller;
 import com.commento.cleanair.infrastructure.AirApiCallerFactory;
 import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 @Slf4j
