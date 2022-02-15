@@ -1,7 +1,8 @@
 package com.commento.cleanair.infrastructure.seoul;
 
 import com.commento.cleanair.controller.dto.AirQualityDto;
-import com.commento.cleanair.infrastructure.AirApiCaller;
+import com.commento.cleanair.service.AirApiCaller;
+import com.commento.cleanair.service.MappedAirQuality;
 import com.commento.cleanair.utils.CalculateAirCondition;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -38,13 +39,11 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
         this.seoulAirQualityApi = retrofit.create(SeoulAirQualityApi.class);
     }
 
-    @Override
     public AirQualitySido getSidoType() {
         return AirQualitySido.seoul;
     }
 
-    @Override
-    public AirQualityDto getAirQuality() {
+    public MappedAirQuality getAirQuality() {
         try {
             Call<SeoulAirQualityApiDto.GetAirQualityResponse> call = seoulAirQualityApi.getAirQuality();
             log.info("call-url = {}",call.request().url());
@@ -67,7 +66,7 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
         }
     }
 
-    public AirQualityDto convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
+    public MappedAirQuality convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
         double avgPm10Avg = response.getResult()
                 .getItems()
                 .stream()
@@ -77,9 +76,9 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
 
         String avgPm10 = String.valueOf(avgPm10Avg);
         String avgPm10AvgGrade = CalculateAirCondition.getPM10Grade(avgPm10);
-        List<AirQualityDto.GuAirQuality> guList = convert(response.getResult().getItems());
+        List<MappedAirQuality.GuAirQuality> guList = convert(response.getResult().getItems());
 
-        return AirQualityDto.builder()
+        return MappedAirQuality.builder()
                 .sido("seoul") //타입수정필요
                 .sidoPm10AvgGrade(avgPm10AvgGrade)
                 .sidoPm10Avg(avgPm10)
@@ -87,10 +86,10 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
                 .build();
     }
 
-    public List<AirQualityDto.GuAirQuality> convert(List<SeoulAirQualityApiDto.Item> response){
+    public List<MappedAirQuality.GuAirQuality> convert(List<SeoulAirQualityApiDto.Item> response){
         return response
                 .stream()
-                .map(responseAir -> AirQualityDto.GuAirQuality
+                .map(responseAir -> MappedAirQuality.GuAirQuality
                         .builder()
                         .gu(responseAir.getMsrsteName())
                         .pm10(responseAir.getCo())

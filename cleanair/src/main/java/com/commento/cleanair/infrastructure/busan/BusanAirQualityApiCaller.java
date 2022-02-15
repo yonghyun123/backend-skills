@@ -1,7 +1,8 @@
 package com.commento.cleanair.infrastructure.busan;
 
 import com.commento.cleanair.controller.dto.AirQualityDto;
-import com.commento.cleanair.infrastructure.AirApiCaller;
+import com.commento.cleanair.service.AirApiCaller;
+import com.commento.cleanair.service.MappedAirQuality;
 import com.commento.cleanair.utils.CalculateAirCondition;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -33,13 +34,11 @@ public class BusanAirQualityApiCaller implements AirApiCaller {
         this.busanAirQualityApi = retrofit.create(BusanAirQualityApi.class);
     }
 
-    @Override
     public AirQualitySido getSidoType() {
         return AirQualitySido.busan;
     }
 
-    @Override
-    public AirQualityDto getAirQuality() {
+    public MappedAirQuality getAirQuality() {
         try {
             var call = busanAirQualityApi.getAirQuality();
             var response = call.execute().body();
@@ -63,7 +62,7 @@ public class BusanAirQualityApiCaller implements AirApiCaller {
         }
     }
 
-    public AirQualityDto convert(BusanAirQualityApiDto.GetAirQualityResponse response) {
+    public MappedAirQuality convert(BusanAirQualityApiDto.GetAirQualityResponse response) {
         double avgPm10Avg = response.getResult()
                 .getItems()
                 .stream()
@@ -73,9 +72,9 @@ public class BusanAirQualityApiCaller implements AirApiCaller {
 
         String avgPm10 = String.valueOf(avgPm10Avg);
         String avgPm10AvgGrade = CalculateAirCondition.getPM10Grade(avgPm10);
-        List<AirQualityDto.GuAirQuality> guList = convert(response.getResult().getItems());
+        List<MappedAirQuality.GuAirQuality> guList = convert(response.getResult().getItems());
 
-        return AirQualityDto.builder()
+        return MappedAirQuality.builder()
                 .sido("busan") //타입수정필요
                 .sidoPm10AvgGrade(avgPm10AvgGrade)
                 .sidoPm10Avg(avgPm10)
@@ -83,10 +82,10 @@ public class BusanAirQualityApiCaller implements AirApiCaller {
                 .build();
     }
 
-    public List<AirQualityDto.GuAirQuality> convert(List<BusanAirQualityApiDto.Item> response){
+    public List<MappedAirQuality.GuAirQuality> convert(List<BusanAirQualityApiDto.Item> response){
         return response
                 .stream()
-                .map(responseAir -> AirQualityDto.GuAirQuality
+                .map(responseAir -> MappedAirQuality.GuAirQuality
                         .builder()
                         .gu(responseAir.getSite())
                         .pm10(responseAir.getCo())

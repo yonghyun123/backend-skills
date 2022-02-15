@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SeoulApiServiceTest {
     @Autowired
-    SeoulApiService seoulApiService;
+    AirQualityApiService seoulApiService;
 
     @Test
     public void seoulApiServiceTest() {

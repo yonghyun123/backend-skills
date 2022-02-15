@@ -1,4 +1,4 @@
-package com.commento.cleanair.infrastructure;
+package com.commento.cleanair.service;
 
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,6 @@ public class AirApiCallerFactory {
         if(CollectionUtils.isEmpty(airApiCallerList)) {
             throw new IllegalArgumentException("해당 지역은 없습니다.");
         }
-        //map은 중간연산이라 값이 들어가지 않음
-//        airApiCallerList.stream()
-//                .map(apiList -> apiCallerMap.put(apiList.getSidoType(), apiList));
 
         airApiCallerList.stream()
                 .forEach(apiList -> apiCallerMap.put(apiList.getSidoType(), apiList));

@@ -1,4 +1,4 @@
-package com.commento.cleanair.infrastructure;
+package com.commento.cleanair.service;
 
 import com.commento.cleanair.controller.dto.AirQualityDto;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
@@ -6,5 +6,5 @@ import com.commento.cleanair.utils.utilenum.AirQualitySido;
 
 public interface AirApiCaller {
     AirQualitySido getSidoType();
-    AirQualityDto getAirQuality();
+    MappedAirQuality getAirQuality();
 }
