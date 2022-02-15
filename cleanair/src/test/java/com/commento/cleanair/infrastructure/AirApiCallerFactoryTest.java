@@ -2,6 +2,8 @@ package com.commento.cleanair.infrastructure;
 
 import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiCaller;
 import com.commento.cleanair.infrastructure.seoul.SeoulAirQualityApiCaller;
+import com.commento.cleanair.service.AirApiCaller;
+import com.commento.cleanair.service.AirApiCallerFactory;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

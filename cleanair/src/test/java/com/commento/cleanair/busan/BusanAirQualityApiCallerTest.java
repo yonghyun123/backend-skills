@@ -1,8 +1,7 @@
 package com.commento.cleanair.busan;
 
-import com.commento.cleanair.dto.AirQualityDto;
+import com.commento.cleanair.controller.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiCaller;
-import com.commento.cleanair.infrastructure.busan.BusanAirQualityApiDto.GetAirQualityResponse;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ class BusanAirQualityApiCallerTest {
     @Test
     public void busanAirAPICallTest() {
 //        GetAirQualityResponse airQuality = busanAirQualityApiCaller.getAirQuality();
-        AirQualityDto.AirQuality airQuality = busanAirQualityApiCaller.getAirQuality();
+        AirQualityDto airQuality = busanAirQualityApiCaller.getAirQuality();
         Assertions.assertThat(airQuality).isNotNull();
     }
 }
