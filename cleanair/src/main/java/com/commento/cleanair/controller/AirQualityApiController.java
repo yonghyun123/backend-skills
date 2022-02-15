@@ -1,6 +1,6 @@
 package com.commento.cleanair.controller;
 
-import com.commento.cleanair.dto.AirQualityDto;
+import com.commento.cleanair.controller.dto.AirQualityDto;
 import com.commento.cleanair.service.SeoulApiService;
 import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
@@ -15,7 +15,7 @@ public class AirQualityApiController {
     private final SeoulApiService seoulApiService;
 
     @GetMapping("/{sido}")
-    public AirQualityDto.AirQuality getAirQuality(@PathVariable AirQualitySido sido,
+    public AirQualityDto getAirQuality(@PathVariable AirQualitySido sido,
                                                   @RequestParam(required = false) AirQualityGu gu){
         return seoulApiService.getSeoulAirInfo(sido, gu);
     }

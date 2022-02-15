@@ -1,6 +1,6 @@
 package com.commento.cleanair.infrastructure.seoul;
 
-import com.commento.cleanair.dto.AirQualityDto;
+import com.commento.cleanair.controller.dto.AirQualityDto;
 import com.commento.cleanair.infrastructure.AirApiCaller;
 import com.commento.cleanair.utils.CalculateAirCondition;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
@@ -44,7 +44,7 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
     }
 
     @Override
-    public AirQualityDto.AirQuality getAirQuality() {
+    public AirQualityDto getAirQuality() {
         try {
             Call<SeoulAirQualityApiDto.GetAirQualityResponse> call = seoulAirQualityApi.getAirQuality();
             log.info("call-url = {}",call.request().url());
@@ -67,7 +67,7 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
         }
     }
 
-    public AirQualityDto.AirQuality convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
+    public AirQualityDto convert(SeoulAirQualityApiDto.GetAirQualityResponse response) {
         double avgPm10Avg = response.getResult()
                 .getItems()
                 .stream()
@@ -79,7 +79,7 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
         String avgPm10AvgGrade = CalculateAirCondition.getPM10Grade(avgPm10);
         List<AirQualityDto.GuAirQuality> guList = convert(response.getResult().getItems());
 
-        return AirQualityDto.AirQuality.builder()
+        return AirQualityDto.builder()
                 .sido("seoul") //타입수정필요
                 .sidoPm10AvgGrade(avgPm10AvgGrade)
                 .sidoPm10Avg(avgPm10)
@@ -92,19 +92,19 @@ public class SeoulAirQualityApiCaller implements AirApiCaller {
                 .stream()
                 .map(responseAir -> AirQualityDto.GuAirQuality
                         .builder()
-                        .GU(responseAir.getMsrsteName())
-                        .PM10(responseAir.getCo())
-                        .PM25(responseAir.getPm25())
-                        .O3(responseAir.getO3())
-                        .NO2(responseAir.getNo2())
-                        .CO(responseAir.getCo())
-                        .SO2(responseAir.getSo2())
-                        .PM10grade(CalculateAirCondition.getPM10Grade(responseAir.getPm10()))
-                        .PM25grade(CalculateAirCondition.getPM25Grade(responseAir.getPm25()))
-                        .O3Grade(CalculateAirCondition.getO3Grade(responseAir.getO3()))
-                        .NO2Grade(CalculateAirCondition.getNO2Grade(responseAir.getNo2()))
-                        .SO2Grade(CalculateAirCondition.getSO2Grade(responseAir.getSo2()))
-                        .COGrade(CalculateAirCondition.getCOGrade(responseAir.getCo()))
+                        .gu(responseAir.getMsrsteName())
+                        .pm10(responseAir.getCo())
+                        .pm25(responseAir.getPm25())
+                        .o3(responseAir.getO3())
+                        .no2(responseAir.getNo2())
+                        .co(responseAir.getCo())
+                        .so2(responseAir.getSo2())
+                        .pm10Grade(CalculateAirCondition.getPM10Grade(responseAir.getPm10()))
+                        .pm25Grade(CalculateAirCondition.getPM25Grade(responseAir.getPm25()))
+                        .o3Grade(CalculateAirCondition.getO3Grade(responseAir.getO3()))
+                        .no2Grade(CalculateAirCondition.getNO2Grade(responseAir.getNo2()))
+                        .so2Grade(CalculateAirCondition.getSO2Grade(responseAir.getSo2()))
+                        .coGrade(CalculateAirCondition.getCOGrade(responseAir.getCo()))
                         .build()
                 ).collect(Collectors.toList());
     }
