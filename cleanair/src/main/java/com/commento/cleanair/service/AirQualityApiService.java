@@ -5,19 +5,24 @@ import com.commento.cleanair.utils.utilenum.AirQualityGu;
 import com.commento.cleanair.utils.utilenum.AirQualitySido;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@EnableCaching
 @RequiredArgsConstructor
 public class AirQualityApiService {
     final private AirApiCallerFactory airApiCallerFactory;
 
     //business logic
-    public AirQualityDto getSeoulAirInfo(AirQualitySido sido, AirQualityGu gu){
+    @Cacheable(cacheNames = "getAirInfo", key = "#sido")
+    public AirQualityDto getAirInfo(AirQualitySido sido, AirQualityGu gu){
 
+        log.info("logged when cache is empty");
         //factroy 패턴을 이용한 지역 APICaller 셋팅
         AirApiCaller apiType = airApiCallerFactory.getApiType(sido);
         MappedAirQuality airQuality = apiType.getAirQuality();
