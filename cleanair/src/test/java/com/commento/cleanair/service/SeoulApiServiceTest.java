@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.stream.IntStream;
+
 
 @SpringBootTest
 class SeoulApiServiceTest {
@@ -17,7 +19,10 @@ class SeoulApiServiceTest {
     @Test
     public void seoulApiServiceTest() {
         //when
-        AirQualityDto seoulAirInfo = seoulApiService.getSeoulAirInfo(AirQualitySido.busan, AirQualityGu.myoungjang);
+        AirQualityDto seoulAirInfo = seoulApiService.getAirInfo(AirQualitySido.busan, AirQualityGu.myoungjang);
+
+        AirQualityDto seoulAirInfo2 = seoulApiService.getAirInfo(AirQualitySido.busan, AirQualityGu.myoungjang);
+
         //then
         Assertions.assertThat(seoulAirInfo.getGuList().size()).isEqualTo(1);
     }
