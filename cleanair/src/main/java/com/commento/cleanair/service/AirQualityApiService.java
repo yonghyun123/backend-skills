@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@EnableCaching
 @RequiredArgsConstructor
+@EnableCaching
 public class AirQualityApiService {
-    final private AirApiCallerFactory airApiCallerFactory;
+    private final AirApiCallerFactory airApiCallerFactory;
 
     //business logic
-    @Cacheable(cacheNames = "getAirInfo", key = "#sido")
+    @Cacheable(cacheNames = "getAirInfo", value = "getAirInfo", key = "#sido")
     public AirQualityDto getAirInfo(AirQualitySido sido, AirQualityGu gu){
 
         log.info("logged when cache is empty");
