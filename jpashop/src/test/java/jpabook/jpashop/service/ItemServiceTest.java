@@ -23,7 +23,7 @@ public class ItemServiceTest {
     @Autowired private ItemService itemService;
     @Autowired private EntityManager em;
 
-    @Test  
+    @Test
     public void 상품_등록(){
         Item book = new Book();
         book.setName("book");
