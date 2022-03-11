@@ -10,8 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 
 @Configurable
 public class LocalCacheConfig extends CachingConfigurerSupport {
-    // 이게 필요한건가...?
-    // 왜 있어야하는지 모르겠다
+
     @Bean
     public EhCacheManagerFactoryBean getEhCacheFactory(){
         EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
