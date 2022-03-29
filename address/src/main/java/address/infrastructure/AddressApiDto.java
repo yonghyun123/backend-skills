@@ -35,7 +35,7 @@ public class AddressApiDto {
         @JsonProperty("errorMessage")
         private String errorMessage;
         @JsonProperty("totalCount")
-        private String totalCount;
+        private Long totalCount;
     }
 
     @Getter

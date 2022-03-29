@@ -9,5 +9,4 @@ public class AddressApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AddressApplication.class, args);
 	}
-
 }

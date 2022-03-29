@@ -29,7 +29,7 @@ public class AddressApiCaller {
         this.addressApi = retrofit.create(AddressApi.class);
     }
 
-    public AddressApiDto.GetAddressInfo getAirQuality(String roadName) {
+    public AddressApiDto.GetAddressInfo getAddressInfo(String roadName) {
         try {
             Call<AddressApiDto.GetAddressInfo> call = addressApi.getAddressInfo(roadName);
             log.info("call-url = {}",call.request().url());
