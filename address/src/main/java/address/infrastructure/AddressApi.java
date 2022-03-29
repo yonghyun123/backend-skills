@@ -9,5 +9,5 @@ public interface AddressApi {
     String serviceKey = "devU01TX0FVVEgyMDIyMDMyOTIxNTExMjExMjQwMjI=";
 
     @GET("addrLinkApi.do?currentPage=1&countPerPage=10&confmKey="+serviceKey+"&resultType=json")
-    Call<Object> getAddressInfo(@Query("keyword") String roadName);
+    Call<AddressApiDto.GetAddressInfo> getAddressInfo(@Query("keyword") String roadName);
 }

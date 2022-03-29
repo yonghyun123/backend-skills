@@ -14,7 +14,7 @@ class AddressApiCallerTest {
 
     @Test
     public void 주소_API통신(){
-        Object roads = addressApiCaller.getAirQuality("강남대로");
+        Object roads = addressApiCaller.getAirQuality("봉오대로");
         Assertions.assertThat(roads).isNotNull();
     }
 

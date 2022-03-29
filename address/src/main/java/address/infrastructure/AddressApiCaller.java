@@ -29,25 +29,25 @@ public class AddressApiCaller {
         this.addressApi = retrofit.create(AddressApi.class);
     }
 
-    public Object getAirQuality(String roadName) {
+    public AddressApiDto.GetAddressInfo getAirQuality(String roadName) {
         try {
-            Call<Object> call = addressApi.getAddressInfo("강남대로");
+            Call<AddressApiDto.GetAddressInfo> call = addressApi.getAddressInfo(roadName);
             log.info("call-url = {}",call.request().url());
             var response = call.execute().body();
             log.info("response-getResult = {}", response.toString());
-            if (response == null) {
-                throw new RuntimeException("getAirQuality 응답값이 존재하지 않습니다.");
+            if (response.getResult().getCommonResponse().getErrorMessage() == null) {
+                throw new RuntimeException("response 응답값이 존재하지 않습니다.");
             }
             if (response != null) {
-                log.info("convert() = {}", response.toString());
+                log.info("convert() = {}", response.getResult());
                 return response;
             }
 
-            throw new RuntimeException("getAirQuality 응답이 올바르지 않습니다. header=" + response);
+            throw new RuntimeException("response 응답이 올바르지 않습니다. header=" + response);
 
         } catch (IOException e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException("getAirQuality API error 발생! errorMessage=" + e.getMessage());
+            throw new RuntimeException("response API error 발생! errorMessage=" + e.getMessage());
         }
     }
 }
