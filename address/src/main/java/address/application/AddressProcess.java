@@ -1,9 +1,9 @@
 package address.application;
 
 import address.infrastructure.AddressApiCaller;
+import address.infrastructure.AddressApiDto;
 import address.utils.Console;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,26 +14,21 @@ public class AddressProcess implements CommandLineRunner {
     //주소를 판단하는 주소 API https://www.juso.go.kr/addrlink/
     private final AddressApiCaller addressApiCaller;
 
-    /**
-     * 입력을 종료하고 싶으면 end를 입력하시오
-     * @param args
-     * @throws Exception
-     */
     @Override
     public void run(String... args) throws Exception {
         //ex) input
         //성남, 분당 백 현 로 265, 푸른마을 아파트로 보내주세요!!
         //백현로
+        //마포구 도화-2길 코끼리분식
+        //도화2길
         System.out.println("주소를 입력하세요");
         String roughAddress = Console.readLine();
-        String exceptAddress = exceptSpecial(roughAddress);
-        System.out.println("exceptAddress = " + exceptAddress);
+
+        String exceptAddress = exceptSpecial(roughAddress); //특수문자 제거
 
         String result = correctAddress(exceptAddress);
         System.out.println("result = " + result);
 
-
-//        addressApiCaller.getAirQuality("강남대로");
     }
 
     /**
@@ -51,49 +46,99 @@ public class AddressProcess implements CommandLineRunner {
         return result.replaceAll(" ","");
     }
 
+    /**
+     * 도로 정제 메서드 호출
+     * @param address
+     * @return
+     */
     public String correctAddress(String address){
 
-        String convertedAddress = "";
-        boolean breakFlag = false;
         //첫문자로 "로","길" 은 제외
         for(int i = 1; i < address.length(); i++){
-            //글자수를 늘려가면서 판단
-            if("로".equals(String.valueOf(address.charAt(i)))){
-                String tempRoad = "";
-                int strCnt = 0;
-                for(int j = i; j >= 0; j--){
-                    tempRoad = String.valueOf(address.charAt(j)) + tempRoad;
-
-                    //도로명주소가 3글자 이상이면 판단 시작
-                    if(strCnt >= 2){
-                        //API 호출을 통해 도로명주소를 가져옴
-                        System.out.println("tempRoad = " + tempRoad);
-                        if(addressApiCaller.getAddressInfo(tempRoad).getResult().getCommonResponse().getTotalCount() > 0){
-
-                            String getApiRoadName = addressApiCaller.getAddressInfo(tempRoad)
-                                    .getResult()
-                                    .getJusoResponses()
-                                    .get(0)
-                                    .getRoadName();
-
-                            if(tempRoad.equals(getApiRoadName)) {
-                                //호출한 도로명주소와 API 도로명 주소가 같으면 결과값 리턴
-                                convertedAddress = getApiRoadName;
-                                breakFlag = true;
-                                break;
-                            }
-                        }
-
-                    }
-                    strCnt += 1;
-                }
-            }
-
-            if("길".equals(String.valueOf(address.charAt(i)))){
-
-            }
-            if(breakFlag) break;
+            //"로" 에 대한 주소 검색
+            String convertedAddress = findByRoad(address, i);
+            if(convertedAddress != null) return convertedAddress;
         }
-        return convertedAddress;
+
+        for(int i = 1; i < address.length(); i++){
+            //"길" 에 대한 주소 검색
+            String convertedAddress = findByStreet(address, i);
+            if(convertedAddress != null) return convertedAddress;
+        }
+        return "fail"; //주소를 찾지 못한 경우
+    }
+
+    /**
+     * "로" 에 해당하는 주소 정제 API 호출
+     * @param inputAddress
+     * @param index
+     * @return
+     */
+    public String findByRoad(String inputAddress, int index){
+        String beforeResultRoad = null;
+        if("로".equals(String.valueOf(inputAddress.charAt(index)))){
+            String resultRoad = "";
+            int strCnt = 0;
+            for(int j = index; j >= 0; j--){
+                resultRoad = inputAddress.charAt(j) + resultRoad;
+                //도로명주소가 3글자 이상이면 판단 시작
+                if(strCnt >= 2){
+                    //API 호출을 통해 도로명주소를 가져옴
+                    AddressApiDto.GetAddressInfo addressInfo = addressApiCaller.getAddressInfo(resultRoad);
+
+                    //결과 건수가 존재할 때,
+                    if(addressInfo.getResult().getCommonResponse().getTotalCount() > 0){
+                        String getApiRoadName = addressInfo.getResult()
+                                .getJusoResponses()
+                                .get(0)
+                                .getRoadName();
+
+                        if(resultRoad.equals(getApiRoadName)) {
+                            //호출한 도로명주소와 API 도로명 주소가 같으면 결과값 리턴
+                            beforeResultRoad =  getApiRoadName;
+                        }
+                    }
+                }
+                strCnt += 1;
+            }
+        }
+        return beforeResultRoad;
+    }
+
+    /**
+     * "길" 에 해당하는 주소 정제 API 호출
+     * @param inputAddress
+     * @param index
+     * @return
+     */
+    public String findByStreet(String inputAddress, int index){
+        String beforeResultRoad = null;
+        if("길".equals(String.valueOf(inputAddress.charAt(index)))){
+            String resultRoad = "";
+            int strCnt = 0; //글자수 판단
+            for(int j = index; j >= 0; j--){
+                resultRoad = inputAddress.charAt(j) + resultRoad;
+                //도로명주소가 3글자 이상이면 판단 시작
+                if(strCnt >= 2){
+                    //API 호출을 통해 도로명주소를 가져옴
+                    AddressApiDto.GetAddressInfo addressInfo = addressApiCaller.getAddressInfo(resultRoad);
+
+                    //결과 건수가 존재할 때,
+                    if(addressInfo.getResult().getCommonResponse().getTotalCount() > 0){
+                        String getApiRoadName = addressInfo.getResult()
+                                .getJusoResponses()
+                                .get(0)
+                                .getRoadName();
+
+                        if(resultRoad.equals(getApiRoadName)) {
+                            //호출한 도로명주소와 API 도로명 주소가 같으면 결과값 리턴
+                            beforeResultRoad = getApiRoadName;
+                        }
+                    }
+                }
+                strCnt += 1;
+            }
+        }
+        return beforeResultRoad;
     }
 }

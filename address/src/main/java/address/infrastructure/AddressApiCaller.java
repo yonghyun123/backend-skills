@@ -32,14 +32,12 @@ public class AddressApiCaller {
     public AddressApiDto.GetAddressInfo getAddressInfo(String roadName) {
         try {
             Call<AddressApiDto.GetAddressInfo> call = addressApi.getAddressInfo(roadName);
-            log.info("call-url = {}",call.request().url());
+            System.out.println("도로명주소 = " + roadName + ", 주소 API 호출중...");
             var response = call.execute().body();
-            log.info("response-getResult = {}", response.toString());
             if (response.getResult().getCommonResponse().getErrorMessage() == null) {
                 throw new RuntimeException("response 응답값이 존재하지 않습니다.");
             }
             if (response != null) {
-                log.info("convert() = {}", response.getResult());
                 return response;
             }
 
