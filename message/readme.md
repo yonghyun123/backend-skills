@@ -18,3 +18,7 @@ item.quantity=수량
 ex)
 <label for="itemName" th:text="#{item.itemName}"></label>
 
+스프링 부트 메시지 소스 기본값
+spring.messages.basename=messages,config.i18n.messages
+
+'MessageSource'를 스프링빈으로 등록하지 않고, 스프링 부트와 관련된 별도의 설정을 하지 않으면, messages라는 이름으로 기본 등록된다. 따라서 messages_en.properties, messages_ko.properties, messages.properties 파일만 등록하면 자동으로 인식된다.
