@@ -40,3 +40,41 @@ http 요청 -> WAS -> 필터 -> 필터 -> 필터 -> 필터 -> 서블릿 -> 컨�
 
 예를들어서 로그를 남기는 필터를 먼저 적용하고, 그 다음에 로그인 여부를 체크하는 필터를 만들 수 있다.
 
+```
+@Slf4j
+public class LogFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        log.info("log filter init");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("log filter doFilter");
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String requestURI = httpRequest.getRequestURI();
+
+        String uuid = UUID.randomUUID().toString();
+
+        try {
+            log.info("REQUEST [{}][{}]", uuid, requestURI);
+            chain.doFilter(request, response);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            log.info("RESPONSE[{}][{}]", uuid, requestURI);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        log.info("log filter destroy");
+    }
+}
+```
+
+> 참고
+> @ServletComponentScan @WebFilter(filterName="logFilter",urlPattern="/*")로 필터 등록이 가능하지만 필터 순서조절이 안된다. 따라서 FilterRegistrationBean을 이용하자.
+
+
+
