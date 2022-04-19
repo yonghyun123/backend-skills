@@ -77,4 +77,18 @@ public class LogFilter implements Filter {
 > @ServletComponentScan @WebFilter(filterName="logFilter",urlPattern="/*")로 필터 등록이 가능하지만 필터 순서조절이 안된다. 따라서 FilterRegistrationBean을 이용하자.
 
 
+> 실무에서 HTTP 요청시 같은 요청의 로그에 모두 같은 식별자를 자동으로 남기는 방법은 logback mdc로 검색하자
+
+
+### 스프링 인터셉터 - 소개
+**스프링 인터셉터 흐름**
+```
+http 요청 -> was -> 필터 -> 서블릿 -> 스프링 인터셉터 -> 컨트롤러
+```
+
+**예외 발생시**
+- preHandle 컨트롤러 호출 전에 호출된다.
+- postHandle 컨트롤러에서 예외가 발생하면 postHandler은 호출되지 않음
+- afterCompletion: afterCompletion은 항상 호출된다. 예외를 파라미터로 받아서 어떤 예외가 발생했는지 로그로 출력 가능
+
 
