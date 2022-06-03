@@ -3,7 +3,7 @@ package com.example.concurrency.ex08;
 import java.util.concurrent.*;
 
 public class ThreadDeadLock {
-    ExecutorService exec = Executors.newSingleThreadExecutor();
+    static ExecutorService exec = Executors.newSingleThreadExecutor();
 
     public class RenderPageTask implements Callable<String>{
 
@@ -16,7 +16,7 @@ public class ThreadDeadLock {
 
             System.out.println("header = " + header.get());
 //            deadlock 발생 지점
-            return "";// header.get() + "," + footer.get() ;
+            return header.get() + "," + footer.get() ;
         }
 
     }
@@ -26,6 +26,12 @@ public class ThreadDeadLock {
         FutureTask futureTask = new FutureTask(task);
         new Thread(futureTask).start();
 
-        System.out.println(futureTask.get());
+        Thread.sleep(5000);
+        System.out.println("cpu count = " + Runtime.getRuntime().availableProcessors());
+
+
+        exec.shutdownNow();
+
+
     }
 }
