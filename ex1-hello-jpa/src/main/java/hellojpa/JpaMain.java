@@ -12,17 +12,12 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member findMember = em.find(Member.class, 150L);
+            findMember.setName("Ciba");
 
-            //비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
+            System.out.println("====================");
 
-            //영속
-            em.persist(member);
-            
             tx.commit();
-
         } catch (Exception e) {
             tx.rollback();
         } finally {
