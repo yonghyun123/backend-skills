@@ -147,8 +147,11 @@ unique -> @Table(uniqueConstraint = "" )
 
 ### @Enummerated
 EnumType.ORDINAL: enum 순서를
+**ORDINAL 사용은 금지**
 
 **운영 장비에는 절대 create, create-drop, update를 사용하면 안된다.**
+
+
 
 
 
