@@ -134,6 +134,21 @@ em.remove(memberA);
 - @Column(unique = true, length = 10)
 
 
+### 요구사항 추가
+
+1. 회원은 일반 회원과 관리자로 구분해야 한다.
+2. 회원 가입일과 수정일이 있어야 한다.
+3. 회원을 설명할 수 있는 필드가 있어야 한다. 이 필드는 길이 제한이 없다.
+
+### 어노테이션 Column
+nullable = false // not null
+insertable = false // not insert
+unique -> @Table(uniqueConstraint = "" )
+
+### @Enummerated
+EnumType.ORDINAL: enum 순서를
+
+**운영 장비에는 절대 create, create-drop, update를 사용하면 안된다.**
 
 
 
