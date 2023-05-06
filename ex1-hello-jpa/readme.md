@@ -153,5 +153,24 @@ EnumType.ORDINAL: enum 순서를
 
 
 
+@Column
+
+name: 필드와 매핑할 테이블 컬럼이름
+updatable: 등록변경 가능여부
+nullable: not null 조건
+precision Scale
+
+Identity 전략
+@GeneratedValue(strategy = Identity) 기본키 생성을 DB에 위임
+@GeneratedValue(strategy = sequence)
+오라클 시퀀스를 만들어버림
+
+ID는 Long이 일반적임
+
+운영에서 테이블sequence전략을 사용하는건 부담스러움
+
+Sequence전략에서는 db 시퀀스를 먼저 읽어서 pk를 셋팅한 후 영속성 컨텍스트에 넣음. Identity와는 반대
+
+
 
 
