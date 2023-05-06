@@ -171,6 +171,34 @@ ID는 Long이 일반적임
 
 Sequence전략에서는 db 시퀀스를 먼저 읽어서 pk를 셋팅한 후 영속성 컨텍스트에 넣음. Identity와는 반대
 
+Member - Team 다대일 관계에서 Member내의 참조변수로 team_id가 아닌 team을 가지면서 @ManyToOne, @JoinColumn(name = "TEAM_ID")가 필요
+
+양방향 연관관계
+
+Team에서 여러명에 Memeber가 존재할 수 있으니
+```@OneToMany(mappedby="team")
+List<Member> members```
+
+**연관관계의 주인과 mappedBy**
+
+둘 중 하나로 외래키를 관리해야한다
+
+### 양방향 매핑 규칙
+- 객체의 관계중 하나를 주인으로 지정
+- 연관관계의 주인만이 외래 키를 관리
+- 주인이 아닌쪽은 읽기만 가능
+- 주인은 mappedBy 속성 사용 X
+- 주인이 아니면 mappedBy속성으로 주인을 지정
+
+
+### 주인은 누구인가
+- 외래키가 있는 곳이 주인
+
+### 컨트롤러에서 엔티티를 반환하지마라
+- 무한루프 발생 가능성(json 생성 라이브러리)
+- 엔티티가 변경되면 api가 변경되어야한다.
+
+
 
 
 
