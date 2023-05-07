@@ -1,6 +1,8 @@
 package jpabook.jpashop;
 
 
+import jpabook.jpashop.domain.Movie;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,6 +17,14 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Movie movie = new Movie();
+            movie.setActor("aaa");
+            movie.setDirector("bbb");
+            movie.setName("gone with the wind");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
