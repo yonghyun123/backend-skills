@@ -1,6 +1,7 @@
 package jpabook.jpashop;
 
 
+import jpabook.jpashop.domain.Book;
 import jpabook.jpashop.domain.Movie;
 
 import javax.persistence.EntityManager;
@@ -17,13 +18,11 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Movie movie = new Movie();
-            movie.setActor("aaa");
-            movie.setDirector("bbb");
-            movie.setName("gone with the wind");
-            movie.setPrice(10000);
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("young han");
 
-            em.persist(movie);
+            em.persist(book);
 
             tx.commit();
         } catch (Exception e) {
