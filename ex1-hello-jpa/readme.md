@@ -198,7 +198,21 @@ List<Member> members```
 - 무한루프 발생 가능성(json 생성 라이브러리)
 - 엔티티가 변경되면 api가 변경되어야한다.
 
+### 상속관계 매핑
+- 관계형 DB는 상속x
+- 슈퍼타입 서브타입 관계 모델링 기법이 존재
 
+
+### 주요 어노테이션
+- @Inheritance(strategy = InheritanceType.JOINED)
+
+
+###MappedSuperclass
+- 상속관계 매핑 X
+- 엔티티 X
+- 매핑 정보만 제공
+- 조회, 검색 불가
+- 추상클래스 권장
 
 
 
