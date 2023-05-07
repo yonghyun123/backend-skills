@@ -22,6 +22,7 @@ public class JpaMain {
             book.setName("JPA");
             book.setAuthor("young han");
 
+
             em.persist(book);
 
             tx.commit();
