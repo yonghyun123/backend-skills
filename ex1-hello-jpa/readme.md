@@ -262,4 +262,34 @@ delete * from child where child_id = ?
 - cacade와 orphanRemoval을 사용하면 부모엔티티를 통해서 자식의 생명주기를 관리함
 
 
+### JPA의 데이터 타입 분류
+엔티티 타입
+
+- @Entity
+- 데이터가 변해도 식별자로 지속해서 추적 가능
+
+값 타입
+
+- int, Integer, String 단순히 값으로 사용하는 타입
+- 식별자가 없고 값만 있으므로 변경시 추적 불가
+
+### @AttributeOverride: 속성 재정의
+- 한 엔티티에서 같은 값 타입을 사용하면?
+- 컬럼명이 중복됨.
+
+
+```
+Member class
+@Embedded
+private Address homeAddress;
+
+@Embedded
+@AttributeOverride(name="city", column=@Column(name = "OFFICE_CITY")),
+@AttributeOverride(name="street", column=@Column(name = "OFFICE_STREET")
+...
+private Address officeAddress;
+
+
+
+```
 
