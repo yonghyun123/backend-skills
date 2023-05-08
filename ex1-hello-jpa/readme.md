@@ -245,5 +245,21 @@ eager로 조회(즉시로딩)
 - 즉시로딩은 JPQL에서 N+1 문제를 일으킨다.
 - @ManyToOne, @OneToOne은 기본이 즉시로딩 -> lazy 로 변경해야함.
 
+### 영속성 전이: cascade - 주의
+- 영속성 전이는 연관관계를 매핑하는것과 관련이 없음.
+- 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화하는 편리를 제공할 뿐
+
+
+### 고아객체
+- orphanRemoval = true
+```
+parent = em.find(Parent.class, parent.getId())
+parent.getChildList().remove(0)
+
+delete * from child where child_id = ?
+```
+
+- cacade와 orphanRemoval을 사용하면 부모엔티티를 통해서 자식의 생명주기를 관리함
+
 
 
