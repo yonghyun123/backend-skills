@@ -252,6 +252,7 @@ eager로 조회(즉시로딩)
 
 ### 고아객체
 - orphanRemoval = true
+
 ```
 parent = em.find(Parent.class, parent.getId())
 parent.getChildList().remove(0)
@@ -289,7 +290,29 @@ private Address homeAddress;
 ...
 private Address officeAddress;
 
+```
+
+### 값 타입 공유 참조
+- 임베디트 타입 같은 값을 변경하면 영향을 미침
+- 부작용이 발생
+
+```
+address = new Address("city", "street")
+member = new Member("A", 10, address)
+member2 = new Member("B", 10, address)
+
+em.persist(member)
+em.persist(member2)
+
+member.getAddress().setcity("newCity"). 
+-> 여기에서 member, member2 모두 변경됨!!
+
+address = new Address("newCity", "street")
+address2 = new Address("city", "street")
 
 
 ```
+### 값 타입 컬렉션의 제약사항
+- 값 타입은 엔티티와 다르게 식별자 개념이 없다.
+- 값 타입 컬렉션에 변경사항이 발생하면, 주인 엔티티에 값을 모두 삭제하고, 변경된 값을 적재 결과적으로는 **사용하지마라**
 

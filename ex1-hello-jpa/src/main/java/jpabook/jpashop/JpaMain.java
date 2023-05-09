@@ -22,8 +22,12 @@ public class JpaMain {
             book.setName("JPA");
             book.setAuthor("young han");
 
+            Book book2 = new Book();
+            book2.setName("JPA");
+            book2.setAuthor("young han");
 
-            em.persist(book);
+
+            em.persist(book2);
 
             tx.commit();
         } catch (Exception e) {
