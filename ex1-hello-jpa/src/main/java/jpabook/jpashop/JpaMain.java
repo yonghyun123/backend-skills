@@ -2,12 +2,14 @@ package jpabook.jpashop;
 
 
 import jpabook.jpashop.domain.Book;
+import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -18,16 +20,18 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Book book = new Book();
-            book.setName("JPA");
-            book.setAuthor("young han");
+            List<Member> resultList = em.createQuery("select m from Member m where m.name like 'kim%'", Member.class).getResultList();
+            System.out.println("resultList = " + resultList);
 
-            Book book2 = new Book();
-            book2.setName("JPA");
-            book2.setAuthor("young han");
+            //주의
+            Member member = new Member();
+            member.setName("nono");
+            em.persist(member);
+            //flush 가 호출됨. commit 시점, query가 나가는 시점
 
+            List resultList1 = em.createNativeQuery("select * from member ", Member.class).getResultList();
 
-            em.persist(book2);
+            System.out.println("resultList1 = " + resultList1);
 
             tx.commit();
         } catch (Exception e) {
