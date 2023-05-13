@@ -339,4 +339,7 @@ address2 = new Address("city", "street")
 ### 주의점
 > 영속성인 상태에서(DB에 반영되기 전) SpringJdbcTemplate를 이용해서 조회하게 되면 조회결과 0
 
+### JPQL
+- JPQL은 객체지향 쿼리언어이다. **엔티티를 대상으로 쿼리**한다.
+- JPQL은 SQL을 추상화해서 특정데이터베이스 SQL에 의존하지 않는다.
 
