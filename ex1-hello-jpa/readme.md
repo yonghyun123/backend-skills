@@ -347,3 +347,28 @@ address2 = new Address("city", "street")
 - select m from Member m
 - Object로 반환
 - new 명령어로 조회
+
+
+### 페이징 API
+-  JPA는 페이징을 다음 두 API로 추상화
+-  setFirstResult(int startPosition): 조회시작위치
+-  setMaxResults(int maxResult): 조회할 데이터 수
+
+### Oracle 방언
+```
+SELECT * FROM
+	  ( SELECT ROW_.* ROWNUM ROWNUM_
+	  	FROM 
+		  ( SELECT
+			    M.ID AS ID,
+			    M.AGE AS AGE,
+			    M.TEAM_ID AS TEAM_ID,
+			    M.NAME AS NAME
+		    FROM MEMBER M
+		    ORDER BY M.NAME 
+	    )  ROW_
+	    WHERE ROWNUM <= ?
+    )
+WHERE ROWNUM_ > ?
+
+```

@@ -15,11 +15,16 @@ public class JpaMain {
         try {
 
             //주의
-            Member member = new Member();
-            member.setUsername("nono2");
-            member.setAge(10);
 
-            em.persist(member);
+            for (int i = 0; i < args.length; i++) {
+                Member member = new Member();
+                member.setUsername("Member" + i);
+                member.setAge(i);
+                em.persist(member);
+            }
+
+            em.flush();
+            em.clear();
             //flush 가 호출됨. commit 시점, query가 나가는 시점
 
 //            TypedQuery<Member> queryMember = em.createQuery("select m from Member m", Member.class);
@@ -36,6 +41,15 @@ public class JpaMain {
 
             for (MemberDTO memberDTO : resultList) {
                 System.out.println("memberDTO = " + memberDTO);
+            }
+
+            List<Member> resultList1 = em.createQuery("select m from Member m order by m.age", Member.class)
+                    .setFirstResult(0)
+                    .setMaxResults(10)
+                    .getResultList();
+
+            for (Member member1 : resultList1) {
+                System.out.println("member1 = " + member1);
             }
 
             tx.commit();
