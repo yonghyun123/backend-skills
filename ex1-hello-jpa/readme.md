@@ -372,3 +372,14 @@ SELECT * FROM
 WHERE ROWNUM_ > ?
 
 ```
+
+### 조인
+- 내부조인
+- 외부조인
+- 세타조인
+
+
+ex) 회원과 팀을 조인하면서, 팀 이름이 A 인 팀
+```select m, t FROM Member m LEFT JOIN m.team t on t.name='A'	```
+
+

@@ -15,13 +15,16 @@ public class JpaMain {
         try {
 
             //주의
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            for (int i = 0; i < args.length; i++) {
-                Member member = new Member();
-                member.setUsername("Member" + i);
-                member.setAge(i);
-                em.persist(member);
-            }
+            Member member = new Member();
+            member.setUsername("Member" );
+            member.setAge(10);
+            member.changeTeam(team);
+
+            em.persist(member);
 
             em.flush();
             em.clear();
@@ -32,20 +35,19 @@ public class JpaMain {
 //
 //            List<Member> resultList = queryMember.getResultList();
 
-            TypedQuery<Member> queryMember2 = em.createQuery("select m from Member m where m.username = :username", Member.class);
-            queryMember2.setParameter("username", "nono2");
-            Member singleResult = queryMember2.getSingleResult();
-            System.out.println("singleResult = " + singleResult);
+//            TypedQuery<Member> queryMember2 = em.createQuery("select m from Member m where m.username = :username", Member.class);
+//            queryMember2.setParameter("username", "nono2");
+//            Member singleResult = queryMember2.getSingleResult();
+//            System.out.println("singleResult = " + singleResult);
+//
+//            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class).getResultList();
+//
+//            for (MemberDTO memberDTO : resultList) {
+//                System.out.println("memberDTO = " + memberDTO);
+//            }
 
-            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class).getResultList();
-
-            for (MemberDTO memberDTO : resultList) {
-                System.out.println("memberDTO = " + memberDTO);
-            }
-
-            List<Member> resultList1 = em.createQuery("select m from Member m order by m.age", Member.class)
-                    .setFirstResult(0)
-                    .setMaxResults(10)
+            String query = "select m from Member m left join m.team t";
+            List<Member> resultList1 = em.createQuery(query, Member.class)
                     .getResultList();
 
             for (Member member1 : resultList1) {
