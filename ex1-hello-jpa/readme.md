@@ -400,4 +400,67 @@ ex) 회원과 팀을 조인하면서, 팀 이름이 A 인 팀
 > 각각의 함수들은 필요할때 검색해서 사용하면 될듯
 
 
+### 경로 표현식
+```
+select m.username -> 상태필드
+from Member m 
+join m.team t -> 단일 값 연관필드
+join m.orders o -> 컬렉션 값 연관 필드
+where t.name = '팀A'
+
+```
+
+- 상태필드 : 단순히 값을 저장하기 위한 필드
+- 연관필드: 연관관계를 위한 필드
+	- 단일 값 연관 필드: @manyToOne, @OneToOne, 대상이 엔티티
+	- 컬렉션 값 연관필드: @OneToMany, @ManyToMany, 대상이 컬렉션
+
+###경로 표현식 특징
+- 상태필드: 탐색의 끝
+- 단일 값 연관 경로: **묵시적 내부조인(inner join) 발생** 탐색 O
+- 컬렉션 값 연관 경로: 묵시적 내부 조인 발생, 탐색 X
+
+### 실무 조언
+- 묵시적 조인 대신에 명시적 조인 사용
+- 조인은 SQL튜닝에 중요 포인트
+- 묵시적 조인이 일어나는 상황을 한눈에 파악하기 어려움
+
+### 페치조인
+- SQL 조인 종류X
+- JPQL에서 성능 최적화를 위해 제공하는 기능
+- 연관된 엔티티나 컬렉션을 SQL한번에 함께 조회한느 기능
+- join fetch 명령어 사용
+
+```
+JPQL
+select m from Member m join fetch m.team
+
+SQL
+select m.*, t.* from member m inner join team t on m.team_id = t.id
+
+일다대 간계 컬렉션 페치 조인
+
+JPQL
+select t
+from Team t join fetch t.members where t.name = '팀A'
+
+SQL
+select t.*, m.*
+from team t
+inner join member m
+on t.id = m.team_id
+
+```
+
+### 페치조인 distinct
+- distinct가 추가로 애플리케이션에서 중복 제거 시도
+- 같은 식별자를 가진 Team엔티티 제거
+
+### 페치 조인과 일반 조인의 차이
+
+- 일반 조인 시 연관된 엔티티를 함께 조회하지 않음.
+
+- 단지 Select 절에 지정한 엔티티만 조회할 뿐
+- 여기서는 팀 엔티티만 조회하고 멤버 엔티티는 조회하지 않음.
+- 페치 조인을 사용할 때 연관된 엔티티도 함께 조회(즉시로딩)
 
