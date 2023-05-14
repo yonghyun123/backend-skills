@@ -387,4 +387,17 @@ ex) 회원과 팀을 조인하면서, 팀 이름이 A 인 팀
 - **inline view에서는 JPQL에서 불가능**
 
 
+### JPQL 기본함수
+- CONCAT
+- SUBSTRING
+- TRIM
+- LOWER, UPPER
+- LENGTH
+- LOCATE
+- ABS,SQRT,MOD
+- SIZE, INDEX
+
+> 각각의 함수들은 필요할때 검색해서 사용하면 될듯
+
+
 
