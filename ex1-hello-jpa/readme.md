@@ -381,5 +381,10 @@ WHERE ROWNUM_ > ?
 
 ex) 회원과 팀을 조인하면서, 팀 이름이 A 인 팀
 ```select m, t FROM Member m LEFT JOIN m.team t on t.name='A'	```
+### JPA 서브쿼리 한계
+- JPA 표준스펙에서는 where, having에서만 서브쿼리 가능
+- 하이버네이트는 select절에서도 가능
+- **inline view에서는 JPQL에서 불가능**
+
 
 

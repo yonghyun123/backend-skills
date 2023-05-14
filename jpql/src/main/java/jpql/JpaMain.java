@@ -4,6 +4,8 @@ package jpql;
 import javax.persistence.*;
 import java.util.List;
 
+import static jpql.MemberType.ADMIN;
+
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -23,6 +25,7 @@ public class JpaMain {
             member.setUsername("Member" );
             member.setAge(10);
             member.changeTeam(team);
+            member.setMemberType(ADMIN);
 
             em.persist(member);
 
@@ -46,13 +49,17 @@ public class JpaMain {
 //                System.out.println("memberDTO = " + memberDTO);
 //            }
 
-            String query = "select m from Member m left join m.team t";
-            List<Member> resultList1 = em.createQuery(query, Member.class)
+            String query = "select m.username, TRUE, 'HELLO' from Member m " +
+                    "where m.memberType = jpql.MemberType.USER";
+            List<Object[]> resultList1 = em.createQuery(query)
                     .getResultList();
 
-            for (Member member1 : resultList1) {
-                System.out.println("member1 = " + member1);
+            for (Object[] objects : resultList1) {
+                System.out.println("objects = " + objects[0]);
+                System.out.println("objects = " + objects[1]);
+                System.out.println("objects = " + objects[2]);
             }
+
 
             tx.commit();
         } catch (Exception e) {
