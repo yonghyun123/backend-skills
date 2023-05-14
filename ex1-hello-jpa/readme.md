@@ -343,3 +343,7 @@ address2 = new Address("city", "street")
 - JPQL은 객체지향 쿼리언어이다. **엔티티를 대상으로 쿼리**한다.
 - JPQL은 SQL을 추상화해서 특정데이터베이스 SQL에 의존하지 않는다.
 
+### 프로젝션 - 여러값 조회
+- select m from Member m
+- Object로 반환
+- new 명령어로 조회

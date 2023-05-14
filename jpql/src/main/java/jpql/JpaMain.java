@@ -32,6 +32,11 @@ public class JpaMain {
             Member singleResult = queryMember2.getSingleResult();
             System.out.println("singleResult = " + singleResult);
 
+            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class).getResultList();
+
+            for (MemberDTO memberDTO : resultList) {
+                System.out.println("memberDTO = " + memberDTO);
+            }
 
             tx.commit();
         } catch (Exception e) {
