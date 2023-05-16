@@ -57,6 +57,12 @@ public class JpaMain {
 
             System.out.println("findMember = " + findMember);
 
+            List<Member> resultList = em.createNamedQuery("Member.findByUsername", Member.class)
+                    .setParameter("username", "회원1")
+                    .getResultList();
+            for (Member member1 : resultList) {
+                System.out.println("member1 = " + member1);
+            }
 
 
             //fetch join을 사용하지 않았다면??

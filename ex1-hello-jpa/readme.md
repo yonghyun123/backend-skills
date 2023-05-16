@@ -489,3 +489,6 @@ em.createQuery(qlString)
 
 
 ```
+
+### Named 쿼리 - 어노테이션
+
