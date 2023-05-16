@@ -474,3 +474,18 @@ on t.id = m.team_id
 - @ManyToOne(fetch=FetchType=LAZY)
 - 최적화가 필요한곳은 페치조인
 
+### 엔티티 직접 사용 - 기본키값
+- JPQL에서 엔티티를 직접 사용하면 SQL에서 해당 엔티티의 기본 키 값을 사용
+- 엔티티를 파라미터로 전달
+- 식별자를 직접 전달
+
+### 엔티티 직접 사용 - 외래키값
+
+```
+Team team = em.find(Team.class, 1L)
+String qlString = "select m from Member m where m.team = :team
+em.createQuery(qlString)
+.setParameter("team", team)
+
+
+```

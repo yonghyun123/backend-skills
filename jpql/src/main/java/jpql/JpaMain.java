@@ -50,12 +50,14 @@ public class JpaMain {
             em.flush();
             em.clear();
             //flush 가 호출됨. commit 시점, query가 나가는 시점
-            String query = "select distinct t from Team t join fetch t.memberList";
-            List<Member> resultList = em.createQuery(query, Member.class).getResultList();
+            String query = "select m from Member m where m = :member";
+            Member findMember = em.createQuery(query, Member.class)
+                    .setParameter("member", member)
+                    .getSingleResult();
 
-            for (Member member1 : resultList) {
-                System.out.println("member1 = " + member1 + "username" + member1.getTeam());
-            }
+            System.out.println("findMember = " + findMember);
+
+
 
             //fetch join을 사용하지 않았다면??
             //member.getTeam을 호출하는 순간 지연로딩으로 쿼리가 날아감
