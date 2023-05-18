@@ -50,20 +50,18 @@ public class JpaMain {
             em.flush();
             em.clear();
             //flush 가 호출됨. commit 시점, query가 나가는 시점
-            String query = "select m from Member m where m = :member";
-            Member findMember = em.createQuery(query, Member.class)
-                    .setParameter("member", member)
-                    .getSingleResult();
+            String query = "update Member m set m.age = 20";
+            int count = em.createQuery(query)
+                    .executeUpdate();
+            System.out.println("count = " + count);
 
-            System.out.println("findMember = " + findMember);
-
-            List<Member> resultList = em.createNamedQuery("Member.findByUsername", Member.class)
-                    .setParameter("username", "회원1")
-                    .getResultList();
-            for (Member member1 : resultList) {
-                System.out.println("member1 = " + member1);
-            }
-
+//            em.flush();
+            em.clear();
+            Member member1 = em.find(Member.class, member.getId()); // 영속성컨텍스트를 다시 조회해도 초기화되지 않아서 아래와 같이 출력됨 -> 영속성컨텍스트를 초기화해야함
+            System.out.println("member1 = " + member1.getAge());   //20
+            System.out.println("memberAge = " + member.getAge());  //10
+            System.out.println("memberAge = " + member2.getAge()); //10
+            System.out.println("memberAge = " + member3.getAge()); //10
 
             //fetch join을 사용하지 않았다면??
             //member.getTeam을 호출하는 순간 지연로딩으로 쿼리가 날아감
