@@ -63,6 +63,11 @@ public class JpaMain {
             System.out.println("memberAge = " + member2.getAge()); //10
             System.out.println("memberAge = " + member3.getAge()); //10
 
+            List<Member> resultList = em.createNamedQuery("Member.findByUsername", Member.class).getResultList();
+            for (Member member4 : resultList) {
+                System.out.println("member4 = " + member4);
+            }
+
             //fetch join을 사용하지 않았다면??
             //member.getTeam을 호출하는 순간 지연로딩으로 쿼리가 날아감
             // member1 -> 쿼리
