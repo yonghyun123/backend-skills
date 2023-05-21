@@ -14,4 +14,12 @@ public class Member {
     @GeneratedValue
     private Long id;
     private String userName;
+
+    protected Member() {
+
+    }
+
+    public Member(String userName) {
+        this.userName = userName;
+    }
 }
