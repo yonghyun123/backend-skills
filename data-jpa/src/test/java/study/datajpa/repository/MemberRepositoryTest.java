@@ -13,20 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @Rollback(value = false)
-class MemberJpaRepositoryTest {
+class MemberRepositoryTest {
 
     @Autowired
-    MemberJpaRepository memberJpaRepository;
+    private MemberRepository memberRepository;
 
     @Test
     public void testMember() {
-        Member member = new Member("MemberA");
-        Member savedMember = memberJpaRepository.save(member);
-        Member findMember = memberJpaRepository.find(savedMember.getId());
+        Member memberA = new Member("memberA");
+        Member savedMember = memberRepository.save(memberA);
 
-        Assertions.assertThat(findMember.getId()).isEqualTo(savedMember.getId());
-        Assertions.assertThat(findMember.getUserName()).isEqualTo(savedMember.getUserName());
-        Assertions.assertThat(findMember).isEqualTo(member); //같은 트랜잭션이라 성공
+        Member findMember = memberRepository.findById(savedMember.getId()).get();
+
+        Assertions.assertThat(findMember.getId()).isEqualTo(memberA.getId());
+        Assertions.assertThat(findMember.getUserName()).isEqualTo(memberA.getUserName());
+        Assertions.assertThat(findMember).isEqualTo(memberA);
     }
-
 }
