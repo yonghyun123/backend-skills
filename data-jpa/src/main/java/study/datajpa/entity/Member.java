@@ -1,8 +1,6 @@
 package study.datajpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +10,17 @@ import lombok.Setter;
 public class Member {
     @Id
     @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
+
     private String userName;
+
+    private int age;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
 
     protected Member() {
 
