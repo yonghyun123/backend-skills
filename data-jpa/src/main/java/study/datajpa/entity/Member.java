@@ -1,12 +1,13 @@
 package study.datajpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id","userName", "age"})
 public class Member {
     @Id
     @GeneratedValue
@@ -17,16 +18,25 @@ public class Member {
 
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
-
-    protected Member() {
-
-    }
-
     public Member(String userName) {
         this.userName = userName;
+    }
+
+    public Member(String userName, int age, Team team) {
+        this.userName = userName;
+        this.age = age;
+        this.team = team;
+        if (team != null) {
+            changeMember(team);
+        }
+    }
+
+    public void changeMember(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
