@@ -3,11 +3,17 @@ package study.datajpa.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id","userName", "age"})
+@ToString(of = {"id", "userName", "age"})
+@NamedQuery(
+        name = "Member.findByUsername",
+        query = "select m from Member m where m.userName = :username"
+)
+
 public class Member {
     @Id
     @GeneratedValue
