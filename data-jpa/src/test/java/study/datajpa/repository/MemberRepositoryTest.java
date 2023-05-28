@@ -229,4 +229,18 @@ class MemberRepositoryTest {
         Assertions.assertThat(i).isEqualTo(4);
 
     }
+
+    @Test
+    public void findMemberLazy() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 10, teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+    }
 }
