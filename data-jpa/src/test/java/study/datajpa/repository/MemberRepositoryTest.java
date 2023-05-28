@@ -1,5 +1,7 @@
 package study.datajpa.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ class MemberRepositoryTest {
     private MemberRepository memberRepository;
     @Autowired
     private TeamRepository teamRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Test
     public void testMember() {
@@ -200,6 +204,29 @@ class MemberRepositoryTest {
         Assertions.assertThat(byAge.isFirst()).isTrue();
         Assertions.assertThat(byAge.hasNext()).isTrue();
 
+
+    }
+
+    @Test
+    public void bulkUpdate() {
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+        memberRepository.save(new Member("member3", 21));
+        memberRepository.save(new Member("member4", 22));
+        memberRepository.save(new Member("member5", 124));
+        memberRepository.save(new Member("member6", 39));
+        int i = memberRepository.bulkAgePlus(20);
+
+
+      //  em.flush();
+        em.clear(); // @Modifying(clearAutomatically = true) -> 설정하면 영속성컨텍스를 초기화한다.
+
+        List<Member> member5 = memberRepository.findByUsername("member5");
+        int age = member5.get(0).getAge();
+        System.out.println("age = " + age);
+
+
+        Assertions.assertThat(i).isEqualTo(4);
 
     }
 }

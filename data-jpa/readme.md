@@ -93,6 +93,9 @@ IncorrectResultSizeDataAccessException
 ### 스프링데이터 JPA 페이징과 정렬
 - org.springframwork.data.domain.Sort: 정렬기능
 - org.springframwork.data.domain.PageableL: 페이징기능
-- 
+
+
+### 벌크성 수정 쿼리
+
 
 
