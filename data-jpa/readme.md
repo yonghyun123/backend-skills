@@ -84,3 +84,10 @@ Optional<Member> optionalMember = memberRepository.findOptionalUsername("asdfasd
  //만약 두건이 조회된다면..? Exception 발생 -> NonUniqueException ->
 IncorrectResultSizeDataAccessException
 ```
+
+### JPA 페이징과 정렬
+- 검색조건 : 10살
+- 이름으로 내림차순
+- 페이징 조건: 페이지당 3건
+
+

@@ -10,12 +10,9 @@ import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -150,16 +147,16 @@ class MemberRepositoryTest {
         memberRepository.save(aaa);
         memberRepository.save(bbb);
 
-        List<Member> byNames = memberRepository.findListUsername("AAA");
-        Member member = memberRepository.findMemberUsername("AAA");
-        Optional<Member> optional = memberRepository.findOptionalUsername("AAA");
+        List<Member> byNames = memberRepository.findListByUserName("AAA");
+        Member member = memberRepository.findMemberByUserName("AAA");
+        Optional<Member> optional = memberRepository.findOptionalByUserName("AAA");
 
 
-        List<Member> result = memberRepository.findListUsername("asdfasdfasdf");//없는 리스트 반환
+        List<Member> result = memberRepository.findListByUserName("asdfasdfasdf");//없는 리스트 반환
         //result 는 null 아님!!!
-        Member findMember = memberRepository.findMemberUsername("asdfasfsadf");
+        Member findMember = memberRepository.findMemberByUserName("asdfasfsadf");
         //findMember 는 null !!!
-        Optional<Member> optionalMember = memberRepository.findOptionalUsername("asdfasdfsadf");
+        Optional<Member> optionalMember = memberRepository.findOptionalByUserName("asdfasdfsadf");
         //대부분 이걸로 처리함
 
 //        for (Member byName : byNames) {
