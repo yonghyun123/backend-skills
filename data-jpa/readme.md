@@ -90,4 +90,9 @@ IncorrectResultSizeDataAccessException
 - 이름으로 내림차순
 - 페이징 조건: 페이지당 3건
 
+### 스프링데이터 JPA 페이징과 정렬
+- org.springframwork.data.domain.Sort: 정렬기능
+- org.springframwork.data.domain.PageableL: 페이징기능
+- 
+
 

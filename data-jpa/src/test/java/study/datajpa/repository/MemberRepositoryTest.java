@@ -4,6 +4,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.dto.MemberDto;
@@ -162,5 +166,40 @@ class MemberRepositoryTest {
 //        for (Member byName : byNames) {
 //            System.out.println("byName = " + byName);
 //        }
+    }
+
+    @Test
+    public void paging() {
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
+        memberRepository.save(new Member("member6", 10));
+
+        int age = 10;
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.DEFAULT_DIRECTION.DESC, "userName"));
+
+        Page<Member> byAge = memberRepository.findByAge(age, pageRequest);
+
+        List<Member> content = byAge.getContent();
+        for (Member member : content) {
+            System.out.println("member = " + member);
+        }
+
+        long totalElements = byAge.getTotalElements();
+        System.out.println("totalElements = " + totalElements);
+
+        Page<MemberDto> toMap = byAge.map(v -> new MemberDto(v.getId(), v.getUserName(), null));
+
+
+        Assertions.assertThat(content.size()).isEqualTo(3);
+        Assertions.assertThat(byAge.getTotalElements()).isEqualTo(6);
+        Assertions.assertThat(byAge.getNumber()).isEqualTo(0);
+        Assertions.assertThat(byAge.getTotalPages()).isEqualTo(2);
+        Assertions.assertThat(byAge.isFirst()).isTrue();
+        Assertions.assertThat(byAge.hasNext()).isTrue();
+
+
     }
 }
