@@ -69,3 +69,18 @@
 
 **컬렉션 파라미터 바인딩**
 
+### 반환 타입
+
+```
+ List<Member> result = memberRepository.findListUsername("asdfasdfasdf");//없는 리스트 반환
+        //result 는 null 아님!!!
+        
+Member findMember = memberRepository.findMemberUsername("asdfasfsadf");
+        //findMember 는 null !!!
+        
+Optional<Member> optionalMember = memberRepository.findOptionalUsername("asdfasdfsadf");
+        //대부분 이걸로 처리함
+        
+ //만약 두건이 조회된다면..? Exception 발생 -> NonUniqueException ->
+IncorrectResultSizeDataAccessException
+```

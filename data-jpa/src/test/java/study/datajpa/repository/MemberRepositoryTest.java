@@ -13,6 +13,7 @@ import study.datajpa.entity.Team;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -141,5 +142,28 @@ class MemberRepositoryTest {
         for (Member byName : byNames) {
             System.out.println("byName = " + byName);
         }
+    }
+    @Test
+    public void returnType() {
+        Member aaa = new Member("AAA", 10);
+        Member bbb = new Member("BBB", 10);
+        memberRepository.save(aaa);
+        memberRepository.save(bbb);
+
+        List<Member> byNames = memberRepository.findListUsername("AAA");
+        Member member = memberRepository.findMemberUsername("AAA");
+        Optional<Member> optional = memberRepository.findOptionalUsername("AAA");
+
+
+        List<Member> result = memberRepository.findListUsername("asdfasdfasdf");//없는 리스트 반환
+        //result 는 null 아님!!!
+        Member findMember = memberRepository.findMemberUsername("asdfasfsadf");
+        //findMember 는 null !!!
+        Optional<Member> optionalMember = memberRepository.findOptionalUsername("asdfasdfsadf");
+        //대부분 이걸로 처리함
+
+//        for (Member byName : byNames) {
+//            System.out.println("byName = " + byName);
+//        }
     }
 }
