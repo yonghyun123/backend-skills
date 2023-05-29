@@ -242,5 +242,14 @@ class MemberRepositoryTest {
 
         memberRepository.save(member1);
         memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            System.out.println("member = " + member.getUserName());
+            System.out.println("member.getTeam = " + member.getTeam().getName());
+        }
     }
 }

@@ -97,5 +97,9 @@ IncorrectResultSizeDataAccessException
 
 ### 벌크성 수정 쿼리
 
+### @EntityGraph
+- @EntityGraph를 사용하면 페치조인에 기능과 동일하다
+
+
 
 
