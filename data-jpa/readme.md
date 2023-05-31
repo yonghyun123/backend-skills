@@ -100,6 +100,10 @@ IncorrectResultSizeDataAccessException
 ### @EntityGraph
 - @EntityGraph를 사용하면 페치조인에 기능과 동일하다
 
+### JPA Hint & Lock
+- JPA 힌트
+- 쿼리힌트 (SQL힌트가 아니라 JPA 구현체에게 제공하는 힌트)
+
 
 
 
