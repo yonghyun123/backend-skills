@@ -104,6 +104,26 @@ IncorrectResultSizeDataAccessException
 - JPA 힌트
 - 쿼리힌트 (SQL힌트가 아니라 JPA 구현체에게 제공하는 힌트)
 
+### 확장 기능
+- 사용자 정의 리포지토리 구현
+- 다양한 이유로 인터페이스의 메서드를 직접 구현하고 싶다면?
+	- JPA직접 사용
+	- 스프링 JDBC 템플릿 사용
+	- Mybatis 사용
+	- DB 커넥션 직접 사용
+	- QueryDsl 등등
+
+
+**JavaConfig설정**
+```
+@EnableJpaRepositories(basePackage = "study.datajpa.repository", repositoryImplementationPostfix = "Impl")
+```
+
+> 참고: 실무에선 QueryDSL이나 SpringJdbcTemplate을 함께 사용할때 적용
+
+
+
+
 
 
 

@@ -281,4 +281,20 @@ class MemberRepositoryTest {
         em.flush();
     }
 
+    @Test
+    public void callCustom() {
+        Member member = new Member("member1", 10);
+        memberRepository.save(member);
+        em.flush();
+        em.clear();
+
+        List<Member> memberCustom = memberRepository.findMemberCustom();
+        for (Member member1 : memberCustom) {
+            System.out.println("member1 = " + member1);
+
+        }
+
+        em.flush();
+    }
+
 }
