@@ -14,7 +14,7 @@ import lombok.*;
         query = "select m from Member m where m.userName = :username"
 )
 
-public class Member {
+public class Member extends BaseEntity{
     @Id
     @GeneratedValue
     @Column(name = "member_id")
