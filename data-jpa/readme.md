@@ -122,7 +122,15 @@ IncorrectResultSizeDataAccessException
 > 참고: 실무에선 QueryDSL이나 SpringJdbcTemplate을 함께 사용할때 적용
 
 
-
+### 도메인 클래스 컨버터
+```
+    @GetMapping("/members2/{id}")
+    public String findMembe2r(@PathVariable("id") Member member) {
+        return member.getUserName();
+    }
+```
+- 스프링데이터JPA가 member에 컨버팅을 해준다
+- 
 
 
 
