@@ -6,10 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -305,6 +302,8 @@ class MemberRepositoryTest {
 
         Member member = new Member("memberA", 10, team);
         Member member2 = new Member("memberA",10, team);
+        em.persist(member);
+        em.persist(member2);
         em.flush();
         em.clear();
 
@@ -317,4 +316,25 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void queryByExample() {
+        Team team = new Team("teamA");
+        em.persist(team);
+
+        Member member = new Member("memberA", 10, team);
+        Member member2 = new Member("memberB",10, team);
+        em.persist(member);
+        em.persist(member2);
+        em.flush();
+        em.clear();
+
+        Member findMember = new Member("memberA");
+        Example<Member> exam = Example.of(findMember);
+        System.out.println("exam = " + exam.getProbe());
+
+        List<Member> all = memberRepository.findAll(exam);
+
+        Assertions.assertThat(all.get(0).getUserName()).isEqualTo("memberA");
+
+    }
 }

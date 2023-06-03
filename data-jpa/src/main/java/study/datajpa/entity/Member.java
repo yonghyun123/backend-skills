@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 
 public class Member extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "member_id")
     private Long id;
 
