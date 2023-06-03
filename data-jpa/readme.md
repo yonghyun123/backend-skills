@@ -142,6 +142,11 @@ IncorrectResultSizeDataAccessException
 - 새로운 엔티티면 저장(persist)
 - 새로운 엔티티가 아니면 병합(merge)
 
+### 새로운 엔티티를 구별하는 방법
+
+### Specifications(명세)
+- 거의 사용 안함
+
 
 
 

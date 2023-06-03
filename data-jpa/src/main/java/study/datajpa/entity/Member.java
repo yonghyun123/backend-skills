@@ -2,6 +2,7 @@ package study.datajpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 
 @Entity
@@ -16,7 +17,7 @@ import lombok.*;
 
 public class Member extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 

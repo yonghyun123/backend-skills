@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.dto.MemberDto;
@@ -295,6 +296,25 @@ class MemberRepositoryTest {
         }
 
         em.flush();
+    }
+
+    @Test
+    public void specificationBasic() {
+        Team team = new Team("teamA");
+        em.persist(team);
+
+        Member member = new Member("memberA", 10, team);
+        Member member2 = new Member("memberA",10, team);
+        em.flush();
+        em.clear();
+
+        Specification<Member> spec = MemberSpec.userName("memberA").and(MemberSpec.teamName("teamA"));
+
+        List<Member> members = memberRepository.findAll(spec);
+        for (Member member1 : members) {
+            System.out.println("member1 = " + member1);
+        }
+
     }
 
 }
