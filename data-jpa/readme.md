@@ -149,6 +149,10 @@ IncorrectResultSizeDataAccessException
 
 ### 네이티브 쿼리
 - 가급적 네이티브 쿼리는 사용하지 않는게 좋음
+- 웬만하면 QueryDSL로 풀어냄
+- 정안되면 myBatis를 사용
+
+
 
 
 

@@ -355,4 +355,42 @@ class MemberRepositoryTest {
         System.out.println("memberA = " + memberA);
 
     }
+
+    @Test
+    public void nativeQuery() {
+        Team team = new Team("teamA");
+        em.persist(team);
+
+        Member member = new Member("memberA", 10, team);
+        Member member2 = new Member("memberB",10, team);
+        em.persist(member);
+        em.persist(member2);
+        em.flush();
+        em.clear();
+
+        Member memberA = memberRepository.findByNativeQuery("memberA");
+        System.out.println("memberA = " + memberA);
+    }
+
+    @Test
+    public void nativeProjectionQuery() {
+        Team team = new Team("teamA");
+        em.persist(team);
+
+        Member member = new Member("memberA", 10, team);
+        Member member2 = new Member("memberB",10, team);
+        em.persist(member);
+        em.persist(member2);
+        em.flush();
+        em.clear();
+
+        int size = 10;
+        Page<MemberProjection> result = memberRepository.findByNativeProjection(PageRequest.of(0, 10));
+        List<MemberProjection> content = result.getContent();
+        for (MemberProjection memberProjection : content) {
+            System.out.println("memberProjection = " + memberProjection.getUserName());
+            System.out.println("memberProjection = " + memberProjection.getTeamName());
+
+        }
+    }
 }
