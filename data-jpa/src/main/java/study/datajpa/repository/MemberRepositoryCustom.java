@@ -5,5 +5,5 @@ import study.datajpa.entity.Member;
 import java.util.List;
 
 public interface MemberRepositoryCustom {
-    public List<Member> findMemberCustom();
+    List<Member> findMemberCustom();
 }

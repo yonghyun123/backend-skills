@@ -147,6 +147,9 @@ IncorrectResultSizeDataAccessException
 ### Specifications(명세)
 - 거의 사용 안함
 
+### 네이티브 쿼리
+- 가급적 네이티브 쿼리는 사용하지 않는게 좋음
+
 
 
 
