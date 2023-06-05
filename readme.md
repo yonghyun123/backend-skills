@@ -14,3 +14,12 @@ https://github.com/jaewonhimnae/docker-codes
 
 $ docker run -it redis
 -> 한방에 해결
+
+
+### 도커란 무엇인가?
+- 컨테이너를 사용하여 응용프로그램을 더 쉽게 만들고 배포하고 실행할 수 있도록 설계된 도구, 오픈소스 가상화 플랫폼
+
+#### 컨테이너는요?
+- 다양한 프로그램, 실행환경을 컨테이너로 추상화하고 동일한 인터페이스를 제공 및 배포하는 것(Mysql, Redis, Webpack..etc)
+- AWS, Asure, Google cloud
+
