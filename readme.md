@@ -30,3 +30,7 @@ $ docker run -it redis
 
 <img width="506" alt="스크린샷 2023-06-08 오후 11 26 37" src="https://github.com/yonghyun123/backend-skills/assets/15208005/9b224792-499c-42ee-bdfa-ff2467250e8c">
 
+> 도커 이미지는 프로그램을 실행하는데 필요한 설정이나 종속성을 갖고 있으며, 도커 이미지를 이용하여 컨테이너를 생상하면 도커 컨테이너를 이용하여 프로그램을 실행한다.
+
+
+### 도커설치
