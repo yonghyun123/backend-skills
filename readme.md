@@ -37,9 +37,22 @@ $ docker run -it redis
 
 ### CLI에서 커맨드 입력하기
 
-$ docker run hello-world
+ docker run hello-world
 
 <img width="601" alt="스크린샷 2023-06-10 오후 6 29 22" src="https://github.com/yonghyun123/backend-skills/assets/15208005/f62f3a6b-469c-4731-9aa2-137e299f6165">
 
+### 도커와 기존의 가상화 기술과의 차이를 통한 컨테이너 이해
 
+<img width="557" alt="스크린샷 2023-06-10 오후 6 34 52" src="https://github.com/yonghyun123/backend-skills/assets/15208005/9048aa71-d76c-4833-ab05-d01a106736e6">
+
+### 도커와 vm 공통점
+
+도커 컨테이너와 가상 머신은 기본 하드웨어에서 격리된 환경 내에 어플리케이션을 배치하는 방법
+
+
+<img width="508" alt="스크린샷 2023-06-10 오후 6 41 32" src="https://github.com/yonghyun123/backend-skills/assets/15208005/51aaad52-3a96-4b44-92af-2045a8eb9b61">
+
+> 결과적으로는 컨테이너끼리 격리되어 있다.
+> 
+> 
 
