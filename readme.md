@@ -34,3 +34,12 @@ $ docker run -it redis
 
 
 ### 도커설치 in Mac
+
+### CLI에서 커맨드 입력하기
+
+$ docker run hello-world
+
+<img width="601" alt="스크린샷 2023-06-10 오후 6 29 22" src="https://github.com/yonghyun123/backend-skills/assets/15208005/f62f3a6b-469c-4731-9aa2-137e299f6165">
+
+
+
