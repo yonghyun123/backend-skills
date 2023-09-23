@@ -94,5 +94,27 @@ ex) docker run hello-world ls
 
 docker run -> docker create + docker start
 
+### docker stop vs docker kill
+
+둘다 실행중인 컨테이너를 중지시킨다
+1. Stop은 gracefully하게 중지
+2. kill은 바로 중지
+
+### 컨테이너 삭제
+
+docker rm <아이디/이름>
+
+- 실행중인 컨테이너는 중지 후 삭제가 가능 
+
+도커 이미지를 삭제하고 싶다면
+docker rmi <이미지 id>
+
+
+한번에 컨테이너, 이미지, 네트워크 모두  삭제하고 싶다면
+
+docker system prune
+
+
+
 
 
