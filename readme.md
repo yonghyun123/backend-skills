@@ -90,3 +90,9 @@ ex) docker run hello-world ls
 -> 에러남 hello-world에 ls 커맨드를 사용할 수 있는 파일시스템이 없음.
 
 
+### 컨테이너들 나열하기
+
+docker run -> docker create + docker start
+
+
+
