@@ -114,6 +114,39 @@ docker rmi <이미지 id>
 
 docker system prune
 
+### 실행중인 컨테이너에 명령어 전달
+
+docker exec <컨테이너 아이디>
+
+docker run vs docker exec
+
+- run : 새로운 컨테이너 시작 후 명령어 전달
+- exec: 실행중인 컨테이너에 명령어 전달
+
+
+### 레디스를 이용한 컨테이너 이해
+
+<img width="652" alt="스크린샷 2023-09-23 오후 3 05 46" src="https://github.com/yonghyun123/poolside_back/assets/15208005/b0735d83-b848-4825-8d3c-3983947a8347">
+
+1. 레디스 서버를 작동(터미널이용)
+2. docker run redis
+3. 이후 레디스 클라이언트를 켜야하는데 동작하지 않음. 에러
+
+
+
+<img width="622" alt="스크린샷 2023-09-23 오후 3 09 37" src="https://github.com/yonghyun123/poolside_back/assets/15208005/dcf7eaeb-2985-4cb0-881c-86745f968749">
+
+
+위와 같은 상황임
+
+
+### 컨테이너 안에서 실행시켜야함
+
+>it란?
+> interactive + terminal
+> 이 명령어가 있어야 레디스클라이언트 안에서 명령어를 계속 실행시킬 수 있음
+
+
 
 
 
