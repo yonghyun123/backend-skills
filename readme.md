@@ -208,3 +208,12 @@ docker build ./ 또는 docker build .
 
 
 -> docker build -t yong9960/hello:latest
+
+
+### 도커를 이용한 간단한 Node.js 만들기
+
+
+<img width="638" alt="스크린샷 2023-10-01 오후 5 18 54" src="https://github.com/yonghyun123/poolside_back/assets/15208005/aad9e06d-fc00-4350-b9c4-83a2c8ede399">
+
+
+
